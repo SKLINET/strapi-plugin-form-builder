@@ -3,8 +3,8 @@
   "description": "",
   "license": "MIT",
   "author": {
-      "name": "SKLINET s.r.o.",
-      "url": "https://github.com/SKLINET"
+    "name": "SKLINET s.r.o.",
+    "url": "https://github.com/SKLINET"
   },
   "version": "1.0.0",
   "keywords": [],
@@ -49,6 +49,7 @@
     "@strapi/typescript-utils": "^5.13.1",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1",
+    "@types/uuid": "^10.0.0",
     "prettier": "^3.5.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
