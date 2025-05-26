@@ -1,0 +1,25 @@
+{
+    "side.banner.title": "Form builder",
+    "side.banner.button": "Configure",
+    "back": "Back",
+    "save": "Save",
+    "success.message": "Form has been saved successfully",
+    "error.message": "Form could not be saved",
+    "field.add": "Add field",
+    "field.item.textinput": "Text field",
+    "field.item.email": "E-mail",
+    "field.item.phone": "Phone number",
+    "field.item.textarea": "Text area",
+    "field.item.checkbox": "Checkbox",
+    "field.item.submit": "Submit button",
+    "field.item.message": "Text message",
+    "unsaved.changes.title": "Unsaved changes",
+    "unsaved.changes.message": "If you leave this page, you will lose unsaved changes.",
+    "unsaved.changes.discard": "Back to editor",
+    "unsaved.changes.confirm": "Leave without saving",
+    "attributes.name": "Field key",
+    "attributes.label": "Field label",
+    "attributes.placeholder": "Placeholder text",
+    "attributes.required": "Required field"
+
+}
