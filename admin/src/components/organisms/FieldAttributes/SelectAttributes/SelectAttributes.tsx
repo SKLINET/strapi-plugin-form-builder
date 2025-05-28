@@ -1,27 +1,30 @@
 import { IApp } from '../../../../types/app';
+import { ISelectedOption } from '../../../../types/form';
 import { getSystemResource } from '../../../../utils/getSystemResorce';
 import { labelToJsonAttribute } from '../../../../utils/labelToJsonAttribute';
 import { Checkbox } from '../../../primitives/Checkbox/Checkbox';
+import { OptionsInput } from '../../../primitives/OptionsInput/OptionsInput';
 import { TextInput } from '../../../primitives/TextInput/TextInput';
 
-interface TextAttributesProps {
+interface SelectAttributesProps {
     data: {
-        type: 'textinput' | 'textarea' | 'email' | 'phone';
+        type: 'select';
         name: string | null;
         label: string | null;
         placeholder: string | null;
         required: boolean;
+        options: ISelectedOption[];
     };
     app: IApp;
 }
 
-const TextAttributes = ({
-    data: { name, label, placeholder, required },
+const SelectAttributes = ({
+    data: { name, label, placeholder, required, options },
     app: {
         controls: { onFieldChange },
         loading,
     },
-}: TextAttributesProps) => (
+}: SelectAttributesProps) => (
     <>
         <TextInput
             name="name"
@@ -46,6 +49,13 @@ const TextAttributes = ({
             label={getSystemResource('attributes.placeholder')}
             disabled={loading}
         />
+        <OptionsInput
+            name="options"
+            label={getSystemResource('attributes.options')}
+            value={options || []}
+            onChange={(e) => onFieldChange('options', e)}
+            disabled={loading}
+        />
         <Checkbox
             name="required"
             value={required}
@@ -57,4 +67,4 @@ const TextAttributes = ({
     </>
 );
 
-export { TextAttributes };
+export { SelectAttributes };

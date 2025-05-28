@@ -4,24 +4,23 @@ import { labelToJsonAttribute } from '../../../../utils/labelToJsonAttribute';
 import { Checkbox } from '../../../primitives/Checkbox/Checkbox';
 import { TextInput } from '../../../primitives/TextInput/TextInput';
 
-interface TextAttributesProps {
+interface CheckboxAttributesProps {
     data: {
-        type: 'textinput' | 'textarea' | 'email' | 'phone';
+        type: 'checkbox';
         name: string | null;
         label: string | null;
-        placeholder: string | null;
         required: boolean;
     };
     app: IApp;
 }
 
-const TextAttributes = ({
-    data: { name, label, placeholder, required },
+const CheckboxAttributes = ({
+    data: { name, label, required },
     app: {
         controls: { onFieldChange },
         loading,
     },
-}: TextAttributesProps) => (
+}: CheckboxAttributesProps) => (
     <>
         <TextInput
             name="name"
@@ -39,13 +38,6 @@ const TextAttributes = ({
             label={getSystemResource('attributes.label')}
             disabled={loading}
         />
-        <TextInput
-            name="placeholder"
-            value={placeholder || ''}
-            onChange={(e) => onFieldChange('placeholder', e)}
-            label={getSystemResource('attributes.placeholder')}
-            disabled={loading}
-        />
         <Checkbox
             name="required"
             value={required}
@@ -57,4 +49,4 @@ const TextAttributes = ({
     </>
 );
 
-export { TextAttributes };
+export { CheckboxAttributes };

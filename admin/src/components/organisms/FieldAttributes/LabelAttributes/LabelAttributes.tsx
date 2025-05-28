@@ -2,22 +2,21 @@ import { IApp } from '../../../../types/app';
 import { getSystemResource } from '../../../../utils/getSystemResorce';
 import { TextInput } from '../../../primitives/TextInput/TextInput';
 
-interface SubmitAttributesProps {
+interface LabelAttributesProps {
     data: {
-        // TODO: split into separate components
-        type: 'submit' | 'message';
+        type: 'submit' | 'title' | 'message';
         label: string | null;
     };
     app: IApp;
 }
 
-const SubmitAttributes = ({
+const LabelAttributes = ({
     data: { label },
     app: {
         controls: { onFieldChange },
         loading,
     },
-}: SubmitAttributesProps) => (
+}: LabelAttributesProps) => (
     <>
         <TextInput
             name="label"
@@ -29,4 +28,4 @@ const SubmitAttributes = ({
     </>
 );
 
-export { SubmitAttributes };
+export { LabelAttributes };

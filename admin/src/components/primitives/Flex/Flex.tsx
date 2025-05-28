@@ -5,7 +5,7 @@ type FlexProps = Record<string, any> & {
     children: ReactNode;
     width?: string;
     bordered?: boolean;
-    rounded?: 'large' | 'medium' | 'small';
+    rounded?: 'large' | 'medium' | 'small' | 'smallest';
     direction?: 'row' | 'column';
     alignItems?: 'center' | 'flex-start' | 'flex-end' | 'stretch';
     justifyContent?: 'center' | 'flex-start' | 'flex-end';
@@ -36,7 +36,7 @@ const Flex = ({
 
     const roundedProps = rounded
         ? {
-              borderRadius: rounded === 'large' ? '16px' : rounded === 'medium' ? '12px' : '8px',
+              borderRadius: rounded === 'large' ? '16px' : rounded === 'medium' ? '12px' :  rounded === 'small' ? '8px' : '4px',
           }
         : {};
 

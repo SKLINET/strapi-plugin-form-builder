@@ -8,9 +8,25 @@ export interface IBuiltForm {
     publishedAt: string;
 }
 
+export interface ISelectedOption {
+    key: string;
+    label: string;
+}
+
 export type IFormField = {
     id: string;
-    type: 'textinput' | 'textarea' | 'email' | 'phone' | 'checkbox' | 'submit' | 'message';
+    type:
+        | 'textinput'
+        | 'textarea'
+        | 'email'
+        | 'phone'
+        | 'file'
+        | 'select'
+        | 'checkbox'
+        | 'submit'
+        | 'title'
+        | 'message'
+        | 'divider';
 } & (
     | {
           type: 'textinput';
@@ -41,10 +57,27 @@ export type IFormField = {
           required: boolean;
       }
     | {
-          type: 'checkbox';
+          type: 'file';
           name: string | null;
           label: string | null;
           placeholder: string | null;
+          required: boolean;
+          maxFileCount: number | null;
+          allowedFileTypes: string[] | null;
+          maxFileSize: number | null;
+      }
+    | {
+          type: 'select';
+          name: string | null;
+          label: string | null;
+          placeholder: string | null;
+          required: boolean;
+          options: ISelectedOption[];
+      }
+    | {
+          type: 'checkbox';
+          name: string | null;
+          label: string | null;
           required: boolean;
       }
     | {
@@ -52,7 +85,14 @@ export type IFormField = {
           label: string | null;
       }
     | {
+          type: 'title';
+          label: string | null;
+      }
+    | {
           type: 'message';
           label: string | null;
+      }
+    | {
+          type: 'divider';
       }
 );

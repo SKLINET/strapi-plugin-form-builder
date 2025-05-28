@@ -1,4 +1,4 @@
-import { Italic, Paragraph, Mail, Phone, SealCheck, Cursor, List } from '@strapi/icons';
+import { Italic, Paragraph, Mail, Phone, SealCheck, Cursor, List, HeadingOne, Minus, File, Link } from '@strapi/icons';
 import { IFormField } from '../../../types/form';
 
 interface FieldIconProps {
@@ -20,10 +20,18 @@ const FieldIcon = ({ type, size = 'm' }: FieldIconProps) => {
             return <Phone {...props} />;
         case 'checkbox':
             return <SealCheck {...props} />;
+        case "file":
+            return <File {...props} />;
+        case "select":
+            return <Link {...props} />;
         case 'submit':
             return <Cursor {...props} />;
+        case "title":
+            return <HeadingOne {...props} />;
         case 'message':
             return <List {...props} />;
+        case "divider":
+            return <Minus {...props} />;
         default:
             return <Italic {...props} />;
     }

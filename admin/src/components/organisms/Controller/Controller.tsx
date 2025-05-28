@@ -67,8 +67,12 @@ const Controller = ({
                             {renderFiledButton('email')}
                             {renderFiledButton('phone')}
                             {renderFiledButton('checkbox')}
+                            {renderFiledButton('file')}
+                            {renderFiledButton('select')}
                             {renderFiledButton('submit')}
+                            {renderFiledButton('title')}
                             {renderFiledButton('message')}
+                            {renderFiledButton('divider')}
                         </Flex>
                     </Popover.Content>
                 </Popover.Root>

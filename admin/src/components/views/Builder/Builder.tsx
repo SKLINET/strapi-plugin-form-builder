@@ -10,6 +10,7 @@ import { getLocale } from '../../../utils/getLocale';
 import { Controller } from '../../organisms/Controller/Controller';
 import { FieldAttributes } from '../../organisms/FieldAttributes/FieldAttributes';
 import { v4 as uuidv4 } from 'uuid';
+import { labelToJsonAttribute } from '../../../utils/labelToJsonAttribute';
 
 interface BuilderProps {
     form: IBuiltForm;
@@ -33,8 +34,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
             case 'textinput':
             case 'textarea':
             case 'email':
-            case 'phone':
-            case 'checkbox': {
+            case 'phone': {
                 const newField: IFormField = {
                     id: uuidv4(),
                     name: null,
@@ -48,12 +48,68 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
 
                 return;
             }
+            case 'checkbox': {
+                const newField: IFormField = {
+                    id: uuidv4(),
+                    name: null,
+                    type: type,
+                    label: null,
+                    required: false,
+                };
+
+                setFormData([...formData, newField]);
+
+                return;
+            }
+            case 'file': {
+                const newField: IFormField = {
+                    id: uuidv4(),
+                    name: null,
+                    type: type,
+                    label: null,
+                    placeholder: null,
+                    required: false,
+                    maxFileCount: 1,
+                    allowedFileTypes: null,
+                    maxFileSize: null,
+                };
+
+                setFormData([...formData, newField]);
+
+                return;
+            }
+            case 'select': {
+                const newField: IFormField = {
+                    id: uuidv4(),
+                    name: null,
+                    type: type,
+                    label: null,
+                    placeholder: null,
+                    required: false,
+                    options: [],
+                };
+
+                setFormData([...formData, newField]);
+
+                return;
+            }
             case 'submit':
+            case 'title':
             case 'message': {
                 const newField: IFormField = {
                     id: uuidv4(),
                     type: type,
                     label: null,
+                };
+
+                setFormData([...formData, newField]);
+
+                return;
+            }
+            case 'divider': {
+                const newField: IFormField = {
+                    id: uuidv4(),
+                    type: type,
                 };
 
                 setFormData([...formData, newField]);
@@ -67,13 +123,19 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
 
     const onFieldChange = (key: string, value: any) => {
         const processValue = () => {
-            switch (typeof value) {
-                case 'string':
-                    return value.length > 0 ? value : null;
-                case 'boolean':
-                    return value || false;
-                default:
-                    return null;
+            if (Array.isArray(value)) {
+                return value;
+            } else {
+                switch (typeof value) {
+                    case 'string':
+                        return value.length > 0 ? value : null;
+                    case 'boolean':
+                        return value || false;
+                    case 'number':
+                        return Math.floor(value);
+                    default:
+                        return null;
+                }
             }
         };
 
@@ -124,8 +186,28 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
     const saveForm = async () => {
         setLoading(true);
 
+        const data = formData.reduce((prev, next) => {
+            let name: string | null | undefined = undefined;
+
+            switch (next.type) {
+                case 'textinput':
+                case 'textarea':
+                case 'email':
+                case 'phone':
+                case 'checkbox':
+                case 'file':
+                case 'select':
+                    name = next.name || (next.label ? labelToJsonAttribute(next.label) : null);
+                    break;
+            }
+
+            if (typeof name === 'undefined') return [...prev, next];
+
+            return [...prev, { ...next, name: name }];
+        }, [] as IFormField[]);
+
         const newForm = await controls.updateForm(form.documentId, {
-            data: formData,
+            data: data,
             locale: locale,
         });
 
