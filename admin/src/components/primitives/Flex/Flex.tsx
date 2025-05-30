@@ -48,7 +48,7 @@ const Flex = ({
             direction={direction}
             alignItems={alignItems}
             justifyContent={justifyContent}
-            flexWrap={flexWrap}
+            wrap={flexWrap}
             gap={gap}
             {...rest}
         >

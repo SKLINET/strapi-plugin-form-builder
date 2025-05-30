@@ -5,6 +5,7 @@ import { LabelAttributes } from './LabelAttributes/LabelAttributes';
 import { CheckboxAttributes } from './CheckboxAttributes/CheckboxAttributes';
 import { FileAttributes } from './FileAttributes/FileAttributes';
 import { SelectAttributes } from './SelectAttributes/SelectAttributes';
+import { ConditionInput } from '../../molecules/ConditionInput/ConditionInput';
 
 interface FieldAttributesProps {
     app: IApp;
@@ -14,7 +15,7 @@ const FieldAttributes = ({ app }: FieldAttributesProps) => {
     const { fields, activeField } = app;
     const field = fields.find((e) => e.id === activeField);
 
-    if (!field || field.type === 'divider') return <></>;
+    if (!field) return <></>;
 
     const renderContent = () => {
         switch (field.type) {
@@ -39,8 +40,15 @@ const FieldAttributes = ({ app }: FieldAttributesProps) => {
     };
 
     return (
-        <Flex direction="column" gap={4} width="auto" grow={1} bordered rounded="large" padding={8}>
-            {renderContent()}
+        <Flex direction="column" gap={4} width="auto" grow={1}>
+            {field.type !== 'divider' && (
+                <Flex direction="column" gap={4} bordered rounded="large" padding={8}>
+                    {renderContent()}
+                </Flex>
+            )}
+            <Flex direction="column" gap={4} bordered rounded="large" padding={8}>
+                <ConditionInput field={field} app={app} />
+            </Flex>
         </Flex>
     );
 };

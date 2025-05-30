@@ -42,6 +42,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     label: null,
                     placeholder: null,
                     required: false,
+                    conditions: [],
                 };
 
                 setFormData([...formData, newField]);
@@ -55,6 +56,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     type: type,
                     label: null,
                     required: false,
+                    conditions: [],
                 };
 
                 setFormData([...formData, newField]);
@@ -72,6 +74,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     maxFileCount: 1,
                     allowedFileTypes: null,
                     maxFileSize: null,
+                    conditions: [],
                 };
 
                 setFormData([...formData, newField]);
@@ -87,6 +90,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     placeholder: null,
                     required: false,
                     options: [],
+                    conditions: [],
                 };
 
                 setFormData([...formData, newField]);
@@ -100,6 +104,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     id: uuidv4(),
                     type: type,
                     label: null,
+                    conditions: [],
                 };
 
                 setFormData([...formData, newField]);
@@ -110,6 +115,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                 const newField: IFormField = {
                     id: uuidv4(),
                     type: type,
+                    conditions: [],
                 };
 
                 setFormData([...formData, newField]);
@@ -186,25 +192,70 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
     const saveForm = async () => {
         setLoading(true);
 
-        const data = formData.reduce((prev, next) => {
-            let name: string | null | undefined = undefined;
+        const data = formData
+            .reduce((prev, next) => {
+                // Generate a unique ID for each field if it doesn't have one
 
-            switch (next.type) {
-                case 'textinput':
-                case 'textarea':
-                case 'email':
-                case 'phone':
-                case 'checkbox':
-                case 'file':
-                case 'select':
-                    name = next.name || (next.label ? labelToJsonAttribute(next.label) : null);
-                    break;
-            }
+                let name: string | null | undefined = undefined;
 
-            if (typeof name === 'undefined') return [...prev, next];
+                switch (next.type) {
+                    case 'textinput':
+                    case 'textarea':
+                    case 'email':
+                    case 'phone':
+                    case 'checkbox':
+                    case 'file':
+                    case 'select':
+                        name = next.name || (next.label ? labelToJsonAttribute(next.label) : null);
+                        break;
+                }
 
-            return [...prev, { ...next, name: name }];
-        }, [] as IFormField[]);
+                if (typeof name === 'undefined') return [...prev, next];
+
+                return [...prev, { ...next, name: name }];
+            }, [] as IFormField[])
+            .reduce((prev, next) => {
+                // Remove conditions for fields that are not present in the form data
+
+                const field = next;
+
+                if (field.conditions && field.conditions.length > 0) {
+                    field.conditions = field.conditions.reduce(
+                        (conditionsPrev, condition) => {
+                            const currentCondition = condition;
+
+                            // If the condition is old, remove it
+                            const field = formData.find((f) => f.id === currentCondition.fieldId);
+
+                            if (!field) {
+                                return conditionsPrev || [];
+                            }
+
+                            // Remove / update value condition in select field when is old
+                            if (field.type === 'select') {
+                                const options = field.options || [];
+                                const option = currentCondition.value;
+
+                                if (typeof option !== 'object') {
+                                    return conditionsPrev || [];
+                                }
+
+                                const newOption = options.find((o) => o.key === option.key);
+                                if (!newOption) {
+                                    return conditionsPrev || [];
+                                }
+
+                                currentCondition.value = newOption;
+                            }
+
+                            return [...(conditionsPrev || []), currentCondition];
+                        },
+                        [] as IFormField['conditions'],
+                    );
+                }
+
+                return [...prev, next];
+            }, [] as IFormField[]);
 
         const newForm = await controls.updateForm(form.documentId, {
             data: data,

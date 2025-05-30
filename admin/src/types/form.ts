@@ -13,8 +13,18 @@ export interface ISelectedOption {
     label: string;
 }
 
+export interface ICondition {
+    id: string;
+    fieldId: string;
+    operator: IOperator;
+    value: string | boolean | ISelectedOption | undefined;
+}
+
+export type IOperator = 'equals' | 'not-equals' | 'contains' | 'not-contains' | 'empty' | 'not-empty';
+
 export type IFormField = {
     id: string;
+    conditions?: ICondition[];
     type:
         | 'textinput'
         | 'textarea'

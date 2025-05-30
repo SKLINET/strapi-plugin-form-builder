@@ -34,7 +34,7 @@ const Controller = ({
     );
 
     return (
-        <Flex direction="column" gap={10} width="40%">
+        <Flex direction="column" gap={10} width="40%" shrink={0}>
             {fields.length > 0 && (
                 <Flex direction="column" gap={4}>
                     {fields.map((e) => {
@@ -48,6 +48,10 @@ const Controller = ({
                                 onClick={() => focusField(isActive ? null : e.id)}
                                 onRemove={() => removeField(e.id)}
                                 disabled={loading}
+                                withConditions={
+                                    (e.conditions || []).filter((e) => fields.map((k) => k.id).includes(e.fieldId))
+                                        .length > 0
+                                }
                             />
                         );
                     })}

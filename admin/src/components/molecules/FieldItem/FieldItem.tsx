@@ -12,9 +12,10 @@ interface FieldItemProps {
     onClick: () => void;
     onRemove: () => void;
     disabled?: boolean;
+    withConditions?: boolean;
 }
 
-const FieldItem = ({ data, isActive, onClick, onRemove, disabled }: FieldItemProps) => {
+const FieldItem = ({ data, isActive, onClick, onRemove, disabled, withConditions }: FieldItemProps) => {
     const getLabel = () => {
         switch (data.type) {
             case 'textinput':
@@ -46,6 +47,7 @@ const FieldItem = ({ data, isActive, onClick, onRemove, disabled }: FieldItemPro
                     padding={4}
                     alignItems="center"
                     borderColor={isActive ? 'primary600' : 'neutral200'}
+                    background={withConditions ? '#F2F2FD' : 'neutral0'}
                     style={{ transition: 'border-color 0.2s ease-in-out' }}
                 >
                     <Flex width="fit-content" flexShrink={0} color="neutral600">
