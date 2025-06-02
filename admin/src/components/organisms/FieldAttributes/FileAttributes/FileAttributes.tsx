@@ -16,12 +16,13 @@ interface FileAttributesProps {
         maxFileCount: number | null;
         allowedFileTypes: string[] | null;
         maxFileSize: number | null;
+        useOnly: boolean;
     };
     app: IApp;
 }
 
 const FileAttributes = ({
-    data: { name, label, placeholder, required, maxFileCount, allowedFileTypes, maxFileSize },
+    data: { name, label, placeholder, required, maxFileCount, allowedFileTypes, maxFileSize, useOnly },
     app: {
         controls: { onFieldChange },
         loading,
@@ -102,6 +103,7 @@ const FileAttributes = ({
             onChange={(e) => onFieldChange('maxFileCount', e)}
             label={getSystemResource('attributes.maxFileCount')}
             disabled={loading}
+            width="calc(50% - 8px)"
         />
         <NumberInput
             name="maxFileSize"
@@ -109,6 +111,7 @@ const FileAttributes = ({
             onChange={(e) => onFieldChange('maxFileSize', e)}
             label={getSystemResource('attributes.maxFileSize')}
             disabled={loading}
+            width="calc(50% - 8px)"
         />
         <Checkbox
             name="required"
@@ -116,7 +119,15 @@ const FileAttributes = ({
             onChange={(e) => onFieldChange('required', e)}
             label={getSystemResource('attributes.required')}
             disabled={loading}
-            width="100%"
+            width="calc(50% - 8px)"
+        />
+        <Checkbox
+            name="useOnly"
+            value={useOnly}
+            onChange={(e) => onFieldChange('useOnly', e)}
+            label={getSystemResource('attributes.useOnly')}
+            disabled={loading}
+            width="calc(50% - 8px)"
         />
     </>
 );

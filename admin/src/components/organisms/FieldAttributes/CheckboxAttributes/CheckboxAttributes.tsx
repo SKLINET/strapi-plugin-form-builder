@@ -10,12 +10,13 @@ interface CheckboxAttributesProps {
         name: string | null;
         label: string | null;
         required: boolean;
+        useOnly: boolean;
     };
     app: IApp;
 }
 
 const CheckboxAttributes = ({
-    data: { name, label, required },
+    data: { name, label, required, useOnly },
     app: {
         controls: { onFieldChange },
         loading,
@@ -44,7 +45,15 @@ const CheckboxAttributes = ({
             onChange={(e) => onFieldChange('required', e)}
             label={getSystemResource('attributes.required')}
             disabled={loading}
-            width="100%"
+            width="calc(50% - 8px)"
+        />
+        <Checkbox
+            name="useOnly"
+            value={useOnly}
+            onChange={(e) => onFieldChange('useOnly', e)}
+            label={getSystemResource('attributes.useOnly')}
+            disabled={loading}
+            width="calc(50% - 8px)"
         />
     </>
 );

@@ -1,7 +1,5 @@
-import { MultiSelect, MultiSelectOption } from '@strapi/design-system';
+import { MultiSelect, MultiSelectOption, Field } from '@strapi/design-system';
 import { nbsp } from '../../../utils/nbsp';
-import { Flex } from '../Flex/Flex';
-import { Text } from '../Text/Text';
 import { getSystemResource } from '../../../utils/getSystemResorce';
 
 interface SelectMultipleProps extends Record<string, any> {
@@ -26,8 +24,8 @@ const SelectMultiple = ({
     placeholder,
     ...rest
 }: SelectMultipleProps) => (
-    <Flex width={width} {...rest} direction="column" gap={1}>
-        {label && <Text color="black" size="xs" label={label} />}
+    <Field.Root width={width} {...rest}>
+        {label && <Field.Label>{nbsp(label)}</Field.Label>}
         <MultiSelect
             value={value}
             onChange={onChange}
@@ -42,7 +40,7 @@ const SelectMultiple = ({
                 </MultiSelectOption>
             ))}
         </MultiSelect>
-    </Flex>
+    </Field.Root>
 );
 
 export { SelectMultiple };

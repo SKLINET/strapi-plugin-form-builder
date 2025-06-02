@@ -36,7 +36,8 @@ export type IFormField = {
         | 'submit'
         | 'title'
         | 'message'
-        | 'divider';
+        | 'divider'
+        | 'special';
 } & (
     | {
           type: 'textinput';
@@ -44,6 +45,7 @@ export type IFormField = {
           label: string | null;
           placeholder: string | null;
           required: boolean;
+          useOnly: boolean;
       }
     | {
           type: 'textarea';
@@ -51,6 +53,7 @@ export type IFormField = {
           label: string | null;
           placeholder: string | null;
           required: boolean;
+          useOnly: boolean;
       }
     | {
           type: 'email';
@@ -58,6 +61,7 @@ export type IFormField = {
           label: string | null;
           placeholder: string | null;
           required: boolean;
+          useOnly: boolean;
       }
     | {
           type: 'phone';
@@ -65,6 +69,7 @@ export type IFormField = {
           label: string | null;
           placeholder: string | null;
           required: boolean;
+          useOnly: boolean;
       }
     | {
           type: 'file';
@@ -75,6 +80,7 @@ export type IFormField = {
           maxFileCount: number | null;
           allowedFileTypes: string[] | null;
           maxFileSize: number | null;
+          useOnly: boolean;
       }
     | {
           type: 'select';
@@ -83,12 +89,14 @@ export type IFormField = {
           placeholder: string | null;
           required: boolean;
           options: ISelectedOption[];
+          useOnly: boolean;
       }
     | {
           type: 'checkbox';
           name: string | null;
           label: string | null;
           required: boolean;
+          useOnly: boolean;
       }
     | {
           type: 'submit';
@@ -104,5 +112,9 @@ export type IFormField = {
       }
     | {
           type: 'divider';
+      }
+    | {
+          type: 'special';
+          codename: string | null;
       }
 );

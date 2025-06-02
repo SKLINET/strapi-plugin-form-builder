@@ -42,6 +42,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     label: null,
                     placeholder: null,
                     required: false,
+                    useOnly: false,
                     conditions: [],
                 };
 
@@ -56,6 +57,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     type: type,
                     label: null,
                     required: false,
+                    useOnly: false,
                     conditions: [],
                 };
 
@@ -74,6 +76,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     maxFileCount: 1,
                     allowedFileTypes: null,
                     maxFileSize: null,
+                    useOnly: false,
                     conditions: [],
                 };
 
@@ -90,6 +93,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     placeholder: null,
                     required: false,
                     options: [],
+                    useOnly: false,
                     conditions: [],
                 };
 
@@ -116,6 +120,17 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     id: uuidv4(),
                     type: type,
                     conditions: [],
+                };
+
+                setFormData([...formData, newField]);
+
+                return;
+            }
+            case 'special': {
+                const newField: IFormField = {
+                    id: uuidv4(),
+                    type: type,
+                    codename: null,
                 };
 
                 setFormData([...formData, newField]);
@@ -299,7 +314,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
     };
 
     return (
-        <Flex padding={10} direction="column" gap={10}>
+        <Flex paddingLeft={10} paddingRight={10} paddingTop={3} paddingBottom={10} direction="column" gap={7}>
             <Topbar app={app} />
             <Flex gap="80px">
                 <Controller app={app} />

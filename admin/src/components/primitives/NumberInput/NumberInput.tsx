@@ -1,6 +1,5 @@
-import { NumberInput as StrapiNumberInput } from '@strapi/design-system';
-import { Flex } from '../Flex/Flex';
-import { Text } from '../Text/Text';
+import { NumberInput as StrapiNumberInput, Field } from '@strapi/design-system';
+import { nbsp } from '../../../utils/nbsp';
 
 interface NumberInputProps extends Record<string, any> {
     name: string;
@@ -22,8 +21,8 @@ const NumberInput = ({
     width = '100%',
     ...rest
 }: NumberInputProps) => (
-    <Flex width={width} {...rest} direction="column" gap={1}>
-        {label && <Text color="black" size="xs" label={label} />}
+    <Field.Root width={width} {...rest}>
+        <Field.Label>{nbsp(label)}</Field.Label>
         <StrapiNumberInput
             name={name}
             value={value}
@@ -32,7 +31,7 @@ const NumberInput = ({
             disabled={disabled}
             size="M"
         />
-    </Flex>
+    </Field.Root>
 );
 
 export { NumberInput };

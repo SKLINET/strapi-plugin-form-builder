@@ -17,6 +17,7 @@
     "field.item.title": "Title",
     "field.item.message": "Text message",
     "field.item.divider": "Divider",
+    "field.item.special": "Special field",
     "unsaved.changes.title": "Unsaved changes",
     "unsaved.changes.message": "If you leave this page, you will lose unsaved changes.",
     "unsaved.changes.discard": "Back to editor",
@@ -31,6 +32,8 @@
     "attributes.maxFileSize": "Max file size (in MB)",
     "attributes.options": "Select options",
     "attributes.conditions": "Display conditions",
+    "attributes.useOnly": "Field is excluded from saving",
+    "attributes.codename": "Codename",
     "select.placeholder": "Select option",
     "select.field": "Select field",
     "select.operator": "Operator",
@@ -48,5 +51,6 @@
     "option.title": "Option title",
     "checked": "Checked",
     "unchecked": "Unchecked",
-    "deleted.field": "Deleted field"
+    "deleted.field": "Deleted field",
+    "no.fields": "Form does not contain any fields"
 }

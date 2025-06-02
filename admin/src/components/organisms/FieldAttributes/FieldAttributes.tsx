@@ -6,6 +6,7 @@ import { CheckboxAttributes } from './CheckboxAttributes/CheckboxAttributes';
 import { FileAttributes } from './FileAttributes/FileAttributes';
 import { SelectAttributes } from './SelectAttributes/SelectAttributes';
 import { ConditionInput } from '../../molecules/ConditionInput/ConditionInput';
+import { SpecialAttributes } from './SpecialAttributes/SpecialAttributes';
 
 interface FieldAttributesProps {
     app: IApp;
@@ -34,15 +35,17 @@ const FieldAttributes = ({ app }: FieldAttributesProps) => {
             case 'title':
             case 'message':
                 return <LabelAttributes data={field} app={app} />;
+            case 'special':
+                return <SpecialAttributes data={field} app={app} />;
             default:
                 return <></>;
         }
     };
 
     return (
-        <Flex direction="column" gap={4} width="auto" grow={1}>
+        <Flex direction="column" gap={4} width="auto" grow={1} position="sticky" top="168px">
             {field.type !== 'divider' && (
-                <Flex direction="column" gap={4} bordered rounded="large" padding={8}>
+                <Flex direction="row" flexWrap="wrap" gap={4} bordered rounded="large" padding={8}>
                     {renderContent()}
                 </Flex>
             )}

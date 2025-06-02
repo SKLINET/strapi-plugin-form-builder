@@ -12,8 +12,14 @@ interface CheckboxProps extends Record<string, any> {
 }
 
 const Checkbox = ({ name, label, value, onChange, disabled, width = '100%', ...rest }: CheckboxProps) => (
-    <Flex width="fit-content" {...rest}>
-        <StrapiCheckbox name={name} checked={value} onCheckedChange={onChange} disabled={disabled} width={width}>
+    <Flex width={width} {...rest}>
+        <StrapiCheckbox
+            name={name}
+            checked={value || false}
+            onCheckedChange={onChange}
+            disabled={disabled}
+            width={width}
+        >
             {nbsp(label)}
         </StrapiCheckbox>
     </Flex>

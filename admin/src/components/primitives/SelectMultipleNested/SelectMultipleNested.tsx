@@ -1,7 +1,6 @@
-import { MultiSelectNested } from '@strapi/design-system';
-import { Flex } from '../Flex/Flex';
-import { Text } from '../Text/Text';
+import { MultiSelectNested, Field } from '@strapi/design-system';
 import { getSystemResource } from '../../../utils/getSystemResorce';
+import { nbsp } from '../../../utils/nbsp';
 
 interface SelectMultipleNestedProps extends Record<string, any> {
     name: string;
@@ -25,8 +24,8 @@ const SelectMultipleNested = ({
     placeholder,
     ...rest
 }: SelectMultipleNestedProps) => (
-    <Flex width={width} {...rest} direction="column" gap={1}>
-        {label && <Text color="black" size="xs" label={label} />}
+    <Field.Root width={width} {...rest}>
+        {label && <Field.Label>{nbsp(label)}</Field.Label>}
         <MultiSelectNested
             value={value}
             onChange={onChange}
@@ -36,7 +35,7 @@ const SelectMultipleNested = ({
             name={name}
             withTags
         />
-    </Flex>
+    </Field.Root>
 );
 
 export { SelectMultipleNested };

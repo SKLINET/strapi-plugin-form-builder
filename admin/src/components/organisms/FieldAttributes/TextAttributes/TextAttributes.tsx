@@ -11,12 +11,13 @@ interface TextAttributesProps {
         label: string | null;
         placeholder: string | null;
         required: boolean;
+        useOnly: boolean;
     };
     app: IApp;
 }
 
 const TextAttributes = ({
-    data: { name, label, placeholder, required },
+    data: { name, label, placeholder, required, useOnly },
     app: {
         controls: { onFieldChange },
         loading,
@@ -52,7 +53,15 @@ const TextAttributes = ({
             onChange={(e) => onFieldChange('required', e)}
             label={getSystemResource('attributes.required')}
             disabled={loading}
-            width="100%"
+            width="calc(50% - 8px)"
+        />
+        <Checkbox
+            name="useOnly"
+            value={useOnly}
+            onChange={(e) => onFieldChange('useOnly', e)}
+            label={getSystemResource('attributes.useOnly')}
+            disabled={loading}
+            width="calc(50% - 8px)"
         />
     </>
 );

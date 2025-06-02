@@ -1,7 +1,5 @@
-import { SingleSelect, SingleSelectOption } from '@strapi/design-system';
+import { SingleSelect, SingleSelectOption, Field } from '@strapi/design-system';
 import { nbsp } from '../../../utils/nbsp';
-import { Flex } from '../Flex/Flex';
-import { Text } from '../Text/Text';
 import { getSystemResource } from '../../../utils/getSystemResorce';
 
 interface SelectProps extends Record<string, any> {
@@ -26,8 +24,8 @@ const Select = ({
     placeholder,
     ...rest
 }: SelectProps) => (
-    <Flex width={width} {...rest} direction="column" gap={1}>
-        {label && <Text color="black" size="xs" label={label} />}
+    <Field.Root width={width} {...rest}>
+        {label && <Field.Label>{nbsp(label)}</Field.Label>}
         <SingleSelect
             value={value}
             onChange={onChange}
@@ -41,7 +39,7 @@ const Select = ({
                 </SingleSelectOption>
             ))}
         </SingleSelect>
-    </Flex>
+    </Field.Root>
 );
 
 export { Select };

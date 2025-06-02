@@ -26,7 +26,7 @@ const TextInput = ({
     ...rest
 }: TextInputProps) => (
     <Field.Root error={error} hint={hint} width={width} {...rest}>
-        <Field.Label>{nbsp(label)}</Field.Label>
+        {label && <Field.Label>{nbsp(label)}</Field.Label>}
         <StrapiTextInput
             name={name}
             value={value}

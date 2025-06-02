@@ -17,6 +17,7 @@
     "field.item.title": "Nadpis",
     "field.item.message": "Textová zpráva",
     "field.item.divider": "Dělicí čára",
+    "field.item.special": "Speciální pole",
     "unsaved.changes.title": "Neuložené změny",
     "unsaved.changes.message": "Pokud opustíte tuto stránku, ztratíte neuložené změny.",
     "unsaved.changes.discard": "Zpět do editoru",
@@ -31,6 +32,8 @@
     "attributes.maxFileSize": "Maximální velikost souboru (v MB)",
     "attributes.options": "Možnosti výběru",
     "attributes.conditions": "Podmínky zobrazení",
+    "attributes.useOnly": "Pole je vyloučeno z ukládání",
+    "attributes.codename": "Kódové označení",
     "select.placeholder": "Vyberte možnost",
     "select.field": "Vyberte pole",
     "select.operator": "Operátor",
@@ -48,5 +51,6 @@
     "option.title": "Název možnosti",
     "checked": "Zaškrtnuto",
     "unchecked": "Není zaškrtnuto",
-    "deleted.field": "Smazané pole"
+    "deleted.field": "Smazané pole",
+    "no.fields": "Formulář neobsahuje žádná pole"
 }

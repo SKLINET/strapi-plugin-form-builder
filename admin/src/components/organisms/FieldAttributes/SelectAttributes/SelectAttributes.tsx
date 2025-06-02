@@ -14,12 +14,13 @@ interface SelectAttributesProps {
         placeholder: string | null;
         required: boolean;
         options: ISelectedOption[];
+        useOnly: boolean;
     };
     app: IApp;
 }
 
 const SelectAttributes = ({
-    data: { name, label, placeholder, required, options },
+    data: { name, label, placeholder, required, options, useOnly },
     app: {
         controls: { onFieldChange },
         loading,
@@ -62,7 +63,15 @@ const SelectAttributes = ({
             onChange={(e) => onFieldChange('required', e)}
             label={getSystemResource('attributes.required')}
             disabled={loading}
-            width="100%"
+            width="calc(50% - 8px)"
+        />
+        <Checkbox
+            name="useOnly"
+            value={useOnly}
+            onChange={(e) => onFieldChange('useOnly', e)}
+            label={getSystemResource('attributes.useOnly')}
+            disabled={loading}
+            width="calc(50% - 8px)"
         />
     </>
 );
