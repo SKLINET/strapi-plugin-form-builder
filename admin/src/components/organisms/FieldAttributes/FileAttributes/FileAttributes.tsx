@@ -1,9 +1,9 @@
 import { IApp } from '../../../../types/app';
 import { getSystemResource } from '../../../../utils/getSystemResorce';
 import { labelToJsonAttribute } from '../../../../utils/labelToJsonAttribute';
-import { Checkbox } from '../../../primitives/Checkbox/Checkbox';
 import { NumberInput } from '../../../primitives/NumberInput/NumberInput';
 import { SelectMultipleNested } from '../../../primitives/SelectMultipleNested/SelectMultipleNested';
+import { Switch } from '../../../primitives/Switch/Switch';
 import { TextInput } from '../../../primitives/TextInput/TextInput';
 
 interface FileAttributesProps {
@@ -17,12 +17,13 @@ interface FileAttributesProps {
         allowedFileTypes: string[] | null;
         maxFileSize: number | null;
         useOnly: boolean;
+        onFullWidth: boolean;
     };
     app: IApp;
 }
 
 const FileAttributes = ({
-    data: { name, label, placeholder, required, maxFileCount, allowedFileTypes, maxFileSize, useOnly },
+    data: { name, label, placeholder, required, maxFileCount, allowedFileTypes, maxFileSize, useOnly, onFullWidth },
     app: {
         controls: { onFieldChange },
         loading,
@@ -113,21 +114,32 @@ const FileAttributes = ({
             disabled={loading}
             width="calc(50% - 8px)"
         />
-        <Checkbox
+        <Switch
             name="required"
             value={required}
             onChange={(e) => onFieldChange('required', e)}
             label={getSystemResource('attributes.required')}
             disabled={loading}
             width="calc(50% - 8px)"
+            secondaryLabels
         />
-        <Checkbox
+        <Switch
+            name="onFullWidth"
+            value={onFullWidth || false}
+            onChange={(e) => onFieldChange('onFullWidth', e)}
+            label={getSystemResource('attributes.onFullWidth')}
+            disabled={loading}
+            width="calc(50% - 8px)"
+            secondaryLabels
+        />
+        <Switch
             name="useOnly"
             value={useOnly}
             onChange={(e) => onFieldChange('useOnly', e)}
             label={getSystemResource('attributes.useOnly')}
             disabled={loading}
             width="calc(50% - 8px)"
+            secondaryLabels
         />
     </>
 );

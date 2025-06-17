@@ -13,6 +13,13 @@ export interface ISelectedOption {
     label: string;
 }
 
+export interface IProduct {
+    id: string;
+    name: string;
+    label: string;
+    price: number;
+}
+
 export interface ICondition {
     id: string;
     fieldId: string;
@@ -20,10 +27,11 @@ export interface ICondition {
     value: string | boolean | ISelectedOption | undefined;
 }
 
-export type IOperator = 'equals' | 'not-equals' | 'contains' | 'not-contains' | 'empty' | 'not-empty';
+export type IOperator = 'equals' | 'not-equals' | 'contains' | 'not-contains' | 'empty' | 'not-empty' | 'has-checked';
 
 export type IFormField = {
     id: string;
+    onFullWidth: boolean;
     conditions?: ICondition[];
     type:
         | 'textinput'
@@ -33,6 +41,9 @@ export type IFormField = {
         | 'file'
         | 'select'
         | 'checkbox'
+        | 'checkboxGroup'
+        | 'productsSelection'
+        | 'amount'
         | 'submit'
         | 'title'
         | 'message'
@@ -99,12 +110,34 @@ export type IFormField = {
           useOnly: boolean;
       }
     | {
+          type: 'checkboxGroup';
+          name: string | null;
+          label: string | null;
+          options: ISelectedOption[];
+          useOnly: boolean;
+      }
+    | {
+          type: 'productsSelection';
+          name: string | null;
+          label: string | null;
+          products: IProduct[];
+          useOnly: boolean;
+      }
+    | {
+          type: 'amount';
+          name: string | null;
+          label: string | null;
+          fields: string[];
+          useOnly: boolean;
+      }
+    | {
           type: 'submit';
           label: string | null;
       }
     | {
           type: 'title';
           label: string | null;
+          isLarge: boolean;
       }
     | {
           type: 'message';

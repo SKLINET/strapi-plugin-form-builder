@@ -6,6 +6,7 @@ export interface IApp {
     activeField: string | null;
     unsavedChanges: boolean;
     loading: boolean;
+    hideAttributes: boolean;
     controls: {
         addField: (type: IFormField['type']) => void;
         removeField: (id: string) => void;
@@ -14,6 +15,7 @@ export interface IApp {
         moveFieldDown: () => void;
         onFieldChange: (key: string, value: any) => void;
         saveForm: () => void;
+        toggleAttributes: () => void;
     };
     locale: string;
 }

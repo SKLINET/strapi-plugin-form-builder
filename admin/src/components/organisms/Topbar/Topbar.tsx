@@ -6,7 +6,7 @@ import { Flex } from '../../primitives/Flex/Flex';
 import { Text } from '../../primitives/Text/Text';
 import { TextButton } from '../../primitives/TextButton/TextButton';
 import { Popover } from '@strapi/design-system';
-import { ArrowUp, ArrowDown, ArrowLeft, Plus, WarningCircle } from '@strapi/icons';
+import { ArrowUp, ArrowDown, ArrowLeft, Plus, WarningCircle, Eye, EyeStriked } from '@strapi/icons';
 import { Dialog } from '../Dialog/Dialog';
 import { IconButton } from '../../primitives/IconButton/IconButton';
 import { IFormField } from '../../../types/form';
@@ -22,7 +22,8 @@ const Topbar = ({
         activeField,
         unsavedChanges,
         loading,
-        controls: { moveFieldUp, moveFieldDown, addField, saveForm },
+        hideAttributes,
+        controls: { moveFieldUp, moveFieldDown, addField, saveForm, toggleAttributes },
         locale,
     },
 }: TopbarProps) => {
@@ -130,6 +131,13 @@ const Topbar = ({
             </Flex>
             <Flex width="fit-content" shrink={0} gap={3}>
                 <IconButton
+                    icon={hideAttributes ? <EyeStriked /> : <Eye />}
+                    variant={hideAttributes ? 'danger-light' : 'tertiary'}
+                    size="L"
+                    onClick={() => toggleAttributes()}
+                    disabled={!activeField || loading}
+                />
+                <IconButton
                     icon={<ArrowUp />}
                     variant="tertiary"
                     size="L"
@@ -158,6 +166,9 @@ const Topbar = ({
                             {renderFiledButton('checkbox')}
                             {renderFiledButton('file')}
                             {renderFiledButton('select')}
+                            {renderFiledButton('checkboxGroup')}
+                            {renderFiledButton('productsSelection')}
+                            {renderFiledButton('amount')}
                             {renderFiledButton('submit')}
                             {renderFiledButton('title')}
                             {renderFiledButton('message')}

@@ -1,29 +1,30 @@
 import { IApp } from '../../../../types/app';
+import { ISelectedOption } from '../../../../types/form';
 import { getSystemResource } from '../../../../utils/getSystemResorce';
 import { labelToJsonAttribute } from '../../../../utils/labelToJsonAttribute';
+import { OptionsInput } from '../../../primitives/OptionsInput/OptionsInput';
 import { Switch } from '../../../primitives/Switch/Switch';
 import { TextInput } from '../../../primitives/TextInput/TextInput';
 
-interface TextAttributesProps {
+interface CheckboxGroupAttributesProps {
     data: {
-        type: 'textinput' | 'textarea' | 'email' | 'phone';
+        type: 'checkboxGroup';
         name: string | null;
         label: string | null;
-        placeholder: string | null;
-        required: boolean;
+        options: ISelectedOption[];
         useOnly: boolean;
         onFullWidth: boolean;
     };
     app: IApp;
 }
 
-const TextAttributes = ({
-    data: { name, label, placeholder, required, useOnly, onFullWidth },
+const CheckboxGroupAttributes = ({
+    data: { name, label, options, useOnly, onFullWidth },
     app: {
         controls: { onFieldChange },
         loading,
     },
-}: TextAttributesProps) => (
+}: CheckboxGroupAttributesProps) => (
     <>
         <TextInput
             name="name"
@@ -41,21 +42,12 @@ const TextAttributes = ({
             label={getSystemResource('attributes.label')}
             disabled={loading}
         />
-        <TextInput
-            name="placeholder"
-            value={placeholder || ''}
-            onChange={(e) => onFieldChange('placeholder', e)}
-            label={getSystemResource('attributes.placeholder')}
+        <OptionsInput
+            name="options"
+            label={getSystemResource('attributes.options')}
+            value={options || []}
+            onChange={(e) => onFieldChange('options', e)}
             disabled={loading}
-        />
-        <Switch
-            name="required"
-            value={required}
-            onChange={(e) => onFieldChange('required', e)}
-            label={getSystemResource('attributes.required')}
-            disabled={loading}
-            width="calc(50% - 8px)"
-            secondaryLabels
         />
         <Switch
             name="onFullWidth"
@@ -78,4 +70,4 @@ const TextAttributes = ({
     </>
 );
 
-export { TextAttributes };
+export { CheckboxGroupAttributes };

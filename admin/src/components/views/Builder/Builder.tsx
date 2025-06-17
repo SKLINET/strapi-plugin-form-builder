@@ -22,6 +22,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
     const [formData, setFormData] = useState(form.data || []);
 
     const [activeField, setActiveField] = useState<string | null>(null);
+    const [hideAttributes, setHideAttributes] = useState(false);
 
     const [loading, setLoading] = useState(false);
 
@@ -44,9 +45,11 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     required: false,
                     useOnly: false,
                     conditions: [],
+                    onFullWidth: false,
                 };
 
                 setFormData([...formData, newField]);
+                setActiveField(newField.id);
 
                 return;
             }
@@ -59,9 +62,11 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     required: false,
                     useOnly: false,
                     conditions: [],
+                    onFullWidth: false,
                 };
 
                 setFormData([...formData, newField]);
+                setActiveField(newField.id);
 
                 return;
             }
@@ -78,9 +83,11 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     maxFileSize: null,
                     useOnly: false,
                     conditions: [],
+                    onFullWidth: false,
                 };
 
                 setFormData([...formData, newField]);
+                setActiveField(newField.id);
 
                 return;
             }
@@ -95,23 +102,92 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     options: [],
                     useOnly: false,
                     conditions: [],
+                    onFullWidth: false,
                 };
 
                 setFormData([...formData, newField]);
+                setActiveField(newField.id);
+
+                return;
+            }
+            case 'checkboxGroup': {
+                const newField: IFormField = {
+                    id: uuidv4(),
+                    name: null,
+                    type: type,
+                    label: null,
+                    options: [],
+                    conditions: [],
+                    useOnly: false,
+                    onFullWidth: false,
+                };
+
+                setFormData([...formData, newField]);
+                setActiveField(newField.id);
+
+                return;
+            }
+            case 'productsSelection': {
+                const newField: IFormField = {
+                    id: uuidv4(),
+                    name: null,
+                    type: type,
+                    label: null,
+                    products: [],
+                    conditions: [],
+                    useOnly: false,
+                    onFullWidth: false,
+                };
+
+                setFormData([...formData, newField]);
+                setActiveField(newField.id);
+
+                return;
+            }
+            case 'amount': {
+                const newField: IFormField = {
+                    id: uuidv4(),
+                    name: null,
+                    label: null,
+                    type: type,
+                    fields: [],
+                    conditions: [],
+                    useOnly: false,
+                    onFullWidth: false,
+                };
+
+                setFormData([...formData, newField]);
+                setActiveField(newField.id);
 
                 return;
             }
             case 'submit':
-            case 'title':
             case 'message': {
                 const newField: IFormField = {
                     id: uuidv4(),
                     type: type,
                     label: null,
                     conditions: [],
+                    onFullWidth: false,
                 };
 
                 setFormData([...formData, newField]);
+                setActiveField(newField.id);
+
+                return;
+            }
+            case 'title': {
+                const newField: IFormField = {
+                    id: uuidv4(),
+                    type: type,
+                    label: null,
+                    isLarge: false,
+                    conditions: [],
+                    onFullWidth: false,
+                };
+
+                setFormData([...formData, newField]);
+                setActiveField(newField.id);
 
                 return;
             }
@@ -120,9 +196,11 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     id: uuidv4(),
                     type: type,
                     conditions: [],
+                    onFullWidth: false,
                 };
 
                 setFormData([...formData, newField]);
+                setActiveField(newField.id);
 
                 return;
             }
@@ -131,9 +209,11 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     id: uuidv4(),
                     type: type,
                     codename: null,
+                    onFullWidth: false,
                 };
 
                 setFormData([...formData, newField]);
+                setActiveField(newField.id);
 
                 return;
             }
@@ -221,6 +301,9 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     case 'checkbox':
                     case 'file':
                     case 'select':
+                    case 'checkboxGroup':
+                    case 'productsSelection':
+                    case 'amount':
                         name = next.name || (next.label ? labelToJsonAttribute(next.label) : null);
                         break;
                 }
@@ -239,15 +322,15 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                         (conditionsPrev, condition) => {
                             const currentCondition = condition;
 
-                            // If the condition is old, remove it
                             const field = formData.find((f) => f.id === currentCondition.fieldId);
 
+                            // If the condition is old, remove it
                             if (!field) {
                                 return conditionsPrev || [];
                             }
 
-                            // Remove / update value condition in select field when is old
-                            if (field.type === 'select') {
+                            // Remove / update value condition in select or checkboxGroup field when is old
+                            if (field.type === 'select' || field.type === 'checkboxGroup') {
                                 const options = field.options || [];
                                 const option = currentCondition.value;
 
@@ -266,6 +349,13 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                             return [...(conditionsPrev || []), currentCondition];
                         },
                         [] as IFormField['conditions'],
+                    );
+                }
+
+                // Remove fields from amount field that are not present in the form data
+                if (field.type === 'amount') {
+                    field.fields = field.fields.filter((field) =>
+                        formData.find((f) => f.type === 'productsSelection' && f.name === field),
                     );
                 }
 
@@ -301,6 +391,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
         activeField: activeField,
         unsavedChanges: JSON.stringify(formData) !== JSON.stringify(form.data),
         loading: loading,
+        hideAttributes: hideAttributes,
         controls: {
             addField: addField,
             removeField: removeField,
@@ -309,6 +400,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
             moveFieldDown: moveFieldDown,
             onFieldChange: onFieldChange,
             saveForm: saveForm,
+            toggleAttributes: () => setHideAttributes(!hideAttributes),
         },
         locale: locale,
     };

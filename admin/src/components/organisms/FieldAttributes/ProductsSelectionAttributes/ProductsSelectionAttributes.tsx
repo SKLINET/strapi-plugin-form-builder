@@ -1,29 +1,30 @@
 import { IApp } from '../../../../types/app';
+import { IProduct } from '../../../../types/form';
 import { getSystemResource } from '../../../../utils/getSystemResorce';
 import { labelToJsonAttribute } from '../../../../utils/labelToJsonAttribute';
+import { ProductsInput } from '../../../primitives/ProductsInput/ProductsInput';
 import { Switch } from '../../../primitives/Switch/Switch';
 import { TextInput } from '../../../primitives/TextInput/TextInput';
 
-interface TextAttributesProps {
+interface ProductsSelectionAttributesProps {
     data: {
-        type: 'textinput' | 'textarea' | 'email' | 'phone';
+        type: 'productsSelection';
         name: string | null;
         label: string | null;
-        placeholder: string | null;
-        required: boolean;
+        products: IProduct[];
         useOnly: boolean;
         onFullWidth: boolean;
     };
     app: IApp;
 }
 
-const TextAttributes = ({
-    data: { name, label, placeholder, required, useOnly, onFullWidth },
+const ProductsSelectionAttributes = ({
+    data: { name, label, products, useOnly, onFullWidth },
     app: {
         controls: { onFieldChange },
         loading,
     },
-}: TextAttributesProps) => (
+}: ProductsSelectionAttributesProps) => (
     <>
         <TextInput
             name="name"
@@ -41,21 +42,12 @@ const TextAttributes = ({
             label={getSystemResource('attributes.label')}
             disabled={loading}
         />
-        <TextInput
-            name="placeholder"
-            value={placeholder || ''}
-            onChange={(e) => onFieldChange('placeholder', e)}
-            label={getSystemResource('attributes.placeholder')}
+        <ProductsInput
+            name="products"
+            value={products}
+            onChange={(e) => onFieldChange('products', e)}
+            label={getSystemResource('attributes.products')}
             disabled={loading}
-        />
-        <Switch
-            name="required"
-            value={required}
-            onChange={(e) => onFieldChange('required', e)}
-            label={getSystemResource('attributes.required')}
-            disabled={loading}
-            width="calc(50% - 8px)"
-            secondaryLabels
         />
         <Switch
             name="onFullWidth"
@@ -78,4 +70,4 @@ const TextAttributes = ({
     </>
 );
 
-export { TextAttributes };
+export { ProductsSelectionAttributes };

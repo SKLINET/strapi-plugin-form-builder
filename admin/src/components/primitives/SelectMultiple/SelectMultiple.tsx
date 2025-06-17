@@ -7,7 +7,7 @@ interface SelectMultipleProps extends Record<string, any> {
     label?: string;
     value: string[];
     onChange: (e: string[]) => void;
-    options: string[];
+    options: { label: string; value: string }[]
     disabled?: boolean;
     placeholder?: string;
     width?: string;
@@ -35,8 +35,8 @@ const SelectMultiple = ({
             withTags
         >
             {options.map((option) => (
-                <MultiSelectOption key={option} value={option}>
-                    {nbsp(option)}
+                <MultiSelectOption key={option.value} value={option.value}>
+                    {nbsp(option.label)}
                 </MultiSelectOption>
             ))}
         </MultiSelect>

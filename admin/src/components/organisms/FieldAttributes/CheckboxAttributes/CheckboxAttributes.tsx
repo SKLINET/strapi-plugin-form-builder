@@ -1,7 +1,7 @@
 import { IApp } from '../../../../types/app';
 import { getSystemResource } from '../../../../utils/getSystemResorce';
 import { labelToJsonAttribute } from '../../../../utils/labelToJsonAttribute';
-import { Checkbox } from '../../../primitives/Checkbox/Checkbox';
+import { Switch } from '../../../primitives/Switch/Switch';
 import { TextInput } from '../../../primitives/TextInput/TextInput';
 
 interface CheckboxAttributesProps {
@@ -11,12 +11,13 @@ interface CheckboxAttributesProps {
         label: string | null;
         required: boolean;
         useOnly: boolean;
+        onFullWidth: boolean;
     };
     app: IApp;
 }
 
 const CheckboxAttributes = ({
-    data: { name, label, required, useOnly },
+    data: { name, label, required, useOnly, onFullWidth },
     app: {
         controls: { onFieldChange },
         loading,
@@ -39,21 +40,32 @@ const CheckboxAttributes = ({
             label={getSystemResource('attributes.label')}
             disabled={loading}
         />
-        <Checkbox
+        <Switch
             name="required"
             value={required}
             onChange={(e) => onFieldChange('required', e)}
             label={getSystemResource('attributes.required')}
             disabled={loading}
             width="calc(50% - 8px)"
+            secondaryLabels
         />
-        <Checkbox
+        <Switch
+            name="onFullWidth"
+            value={onFullWidth || false}
+            onChange={(e) => onFieldChange('onFullWidth', e)}
+            label={getSystemResource('attributes.onFullWidth')}
+            disabled={loading}
+            width="calc(50% - 8px)"
+            secondaryLabels
+        />
+        <Switch
             name="useOnly"
             value={useOnly}
             onChange={(e) => onFieldChange('useOnly', e)}
             label={getSystemResource('attributes.useOnly')}
             disabled={loading}
             width="calc(50% - 8px)"
+            secondaryLabels
         />
     </>
 );

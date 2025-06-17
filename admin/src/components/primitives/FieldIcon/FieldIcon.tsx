@@ -11,6 +11,9 @@ import {
     File,
     Link,
     Code,
+    Faders,
+    Shirt,
+    ShoppingCart,
 } from '@strapi/icons';
 import { IFormField } from '../../../types/form';
 
@@ -37,6 +40,12 @@ const FieldIcon = ({ type, size = 'm' }: FieldIconProps) => {
             return <File {...props} />;
         case 'select':
             return <Link {...props} />;
+        case 'checkboxGroup':
+            return <Faders {...props} />;
+        case 'productsSelection':
+            return <Shirt {...props} />;
+        case 'amount':
+            return <ShoppingCart {...props} />;
         case 'submit':
             return <Cursor {...props} />;
         case 'title':

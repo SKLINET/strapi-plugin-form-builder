@@ -7,13 +7,17 @@ import { FileAttributes } from './FileAttributes/FileAttributes';
 import { SelectAttributes } from './SelectAttributes/SelectAttributes';
 import { ConditionInput } from '../../molecules/ConditionInput/ConditionInput';
 import { SpecialAttributes } from './SpecialAttributes/SpecialAttributes';
+import { TitleAttributes } from './TitleAttributes/TitleAttributes';
+import { CheckboxGroupAttributes } from './CheckboxGroupAttributes/CheckboxGroupAttributes';
+import { ProductsSelectionAttributes } from './ProductsSelectionAttributes/ProductsSelectionAttributes';
+import { AmountAttributes } from './AmountAttributes/AmountAttributes';
 
 interface FieldAttributesProps {
     app: IApp;
 }
 
 const FieldAttributes = ({ app }: FieldAttributesProps) => {
-    const { fields, activeField } = app;
+    const { fields, activeField, hideAttributes } = app;
     const field = fields.find((e) => e.id === activeField);
 
     if (!field) return <></>;
@@ -31,10 +35,17 @@ const FieldAttributes = ({ app }: FieldAttributesProps) => {
                 return <FileAttributes data={field} app={app} />;
             case 'select':
                 return <SelectAttributes data={field} app={app} />;
+            case 'checkboxGroup':
+                return <CheckboxGroupAttributes data={field} app={app} />;
+            case 'productsSelection':
+                return <ProductsSelectionAttributes data={field} app={app} />;
+            case 'amount':
+                return <AmountAttributes data={field} app={app} />;
             case 'submit':
-            case 'title':
             case 'message':
                 return <LabelAttributes data={field} app={app} />;
+            case 'title':
+                return <TitleAttributes data={field} app={app} />;
             case 'special':
                 return <SpecialAttributes data={field} app={app} />;
             default:
@@ -45,7 +56,19 @@ const FieldAttributes = ({ app }: FieldAttributesProps) => {
     return (
         <Flex direction="column" gap={4} width="auto" grow={1} position="sticky" top="168px">
             {field.type !== 'divider' && (
-                <Flex direction="row" flexWrap="wrap" gap={4} bordered rounded="large" padding={8}>
+                <Flex
+                    direction="row"
+                    flexWrap="wrap"
+                    gap={4}
+                    bordered
+                    rounded="large"
+                    padding={8}
+                    style={
+                        hideAttributes
+                            ? { opacity: 0.5, pointerEvents: 'none', overflow: 'hidden', maxHeight: '100px' }
+                            : {}
+                    }
+                >
                     {renderContent()}
                 </Flex>
             )}

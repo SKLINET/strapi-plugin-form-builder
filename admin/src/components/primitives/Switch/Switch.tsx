@@ -8,14 +8,23 @@ interface SwitchProps extends Record<string, any> {
     onChange: (e: boolean) => void;
     disabled?: boolean;
     width?: string;
+    secondaryLabels?: boolean;
 }
 
-const Switch = ({ label, value, onChange, disabled, width = '100%', ...rest }: SwitchProps) => (
+const Switch = ({
+    label,
+    value,
+    onChange,
+    disabled,
+    width = '100%',
+    secondaryLabels = false,
+    ...rest
+}: SwitchProps) => (
     <Field.Root width={width} {...rest}>
         <Field.Label>{nbsp(label)}</Field.Label>
         <Toggle
-            onLabel={getSystemResource('checked')}
-            offLabel={getSystemResource('unchecked')}
+            onLabel={getSystemResource(secondaryLabels ? 'yes' : 'checked')}
+            offLabel={getSystemResource(secondaryLabels ? 'no' : 'unchecked')}
             checked={value}
             onChange={() => onChange(!value)}
         />

@@ -68,6 +68,7 @@ const ConditionInput = ({
             case 'phone':
             case 'checkbox':
             case 'select':
+            case 'checkboxGroup':
                 return trimString(field.label || getSystemResource(`field.item.${field.type}`), maxLength);
             default:
                 return getSystemResource('select.field');
@@ -114,6 +115,8 @@ const ConditionInput = ({
                 );
             case 'checkbox':
                 return <>{renderOperatorButton('equals')}</>;
+            case 'checkboxGroup':
+                return <>{renderOperatorButton('has-checked')}</>;
             case 'select':
                 return (
                     <>
@@ -175,6 +178,41 @@ const ConditionInput = ({
             }
             case 'checkbox': {
                 return <Switch value={selectedBool} onChange={(e) => setSelectedBool(e)} disabled={loading} />;
+            }
+            case 'checkboxGroup': {
+                if (selectedOperator === 'has-checked') {
+                    return (
+                        <SelectButton
+                            buttonLabel={
+                                selectedOption ? selectedOption.label : getSystemResource('select.placeholder')
+                            }
+                            buttonVariant={selectedOption ? 'success-light' : 'tertiary'}
+                            disabled={loading}
+                            width="100%"
+                        >
+                            <Flex padding={4} gap={2} direction="column">
+                                {selectedField.options.map((option) => (
+                                    <Button
+                                        key={option.key}
+                                        label={option.label}
+                                        variant={
+                                            selectedOption && selectedOption.key === option.key ? 'default' : 'tertiary'
+                                        }
+                                        size="M"
+                                        fullWidth
+                                        disabled={loading}
+                                        onClick={() =>
+                                            setSelectedOption(
+                                                selectedOption && selectedOption.key === option.key ? null : option,
+                                            )
+                                        }
+                                    />
+                                ))}
+                            </Flex>
+                        </SelectButton>
+                    );
+                }
+                break;
             }
             case 'select': {
                 if (selectedOperator === 'equals' || selectedOperator === 'not-equals') {
@@ -243,6 +281,15 @@ const ConditionInput = ({
                 value = selectedBool || false;
                 break;
             }
+            case 'checkboxGroup': {
+                if (selectedOperator === 'has-checked') {
+                    if (!selectedOption) {
+                        isDisabled = true;
+                    }
+                }
+                value = selectedOption || undefined;
+                break;
+            }
             case 'select': {
                 if (selectedOperator === 'equals' || selectedOperator === 'not-equals') {
                     if (!selectedOption) {
@@ -293,12 +340,13 @@ const ConditionInput = ({
                                             (condition.value as boolean) ? 'checked' : 'unchecked',
                                         ).toLowerCase();
                                         break;
+                                    case 'checkboxGroup':
                                     case 'select':
                                         valueLabel = (condition.value as ISelectedOption).label || '';
                                         break;
                                 }
 
-                                return `${getButtonLabel(field, 20)} ${operatorLabel} ${valueLabel}`;
+                                return `${getButtonLabel(field, 20)} ${operatorLabel} ${trimString(valueLabel, 20)}`;
                             };
 
                             return <Tag key={condition.id} label={getLabel()} onRemove={() => remove(condition.id)} />;
@@ -325,6 +373,7 @@ const ConditionInput = ({
                                     case 'phone':
                                     case 'checkbox':
                                     case 'select':
+                                    case 'checkboxGroup':
                                         return (
                                             <Button
                                                 key={e.id}

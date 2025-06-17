@@ -25,6 +25,8 @@ const FieldItem = ({ data, isActive, onClick, onRemove, disabled, withConditions
             case 'checkbox':
             case 'file':
             case 'select':
+            case 'checkboxGroup':
+            case 'productsSelection':
             case 'submit':
             case 'title':
             case 'message': {

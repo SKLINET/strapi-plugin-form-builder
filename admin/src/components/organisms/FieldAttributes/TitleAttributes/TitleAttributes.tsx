@@ -3,22 +3,23 @@ import { getSystemResource } from '../../../../utils/getSystemResorce';
 import { Switch } from '../../../primitives/Switch/Switch';
 import { TextInput } from '../../../primitives/TextInput/TextInput';
 
-interface LabelAttributesProps {
+interface TitleAttributesProps {
     data: {
         type: 'submit' | 'title' | 'message';
         label: string | null;
+        isLarge: boolean;
         onFullWidth: boolean;
     };
     app: IApp;
 }
 
-const LabelAttributes = ({
-    data: { label, onFullWidth },
+const TitleAttributes = ({
+    data: { label, isLarge, onFullWidth },
     app: {
         controls: { onFieldChange },
         loading,
     },
-}: LabelAttributesProps) => (
+}: TitleAttributesProps) => (
     <>
         <TextInput
             name="label"
@@ -26,6 +27,15 @@ const LabelAttributes = ({
             onChange={(e) => onFieldChange('label', e)}
             label={getSystemResource('attributes.label')}
             disabled={loading}
+        />
+        <Switch
+            name="isLarge"
+            value={isLarge || false}
+            onChange={(e) => onFieldChange('isLarge', e)}
+            label={getSystemResource('attributes.isLarge')}
+            disabled={loading}
+            width="calc(50% - 8px)"
+            secondaryLabels
         />
         <Switch
             name="onFullWidth"
@@ -39,4 +49,4 @@ const LabelAttributes = ({
     </>
 );
 
-export { LabelAttributes };
+export { TitleAttributes };
