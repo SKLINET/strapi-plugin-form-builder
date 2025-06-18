@@ -34,7 +34,6 @@ const SpecialAttributes = ({
             label={getSystemResource('attributes.onFullWidth')}
             disabled={loading}
             width="calc(50% - 8px)"
-            secondaryLabels
         />
     </>
 );

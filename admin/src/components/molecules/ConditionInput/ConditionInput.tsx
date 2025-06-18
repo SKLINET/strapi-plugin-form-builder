@@ -177,7 +177,14 @@ const ConditionInput = ({
                 break;
             }
             case 'checkbox': {
-                return <Switch value={selectedBool} onChange={(e) => setSelectedBool(e)} disabled={loading} />;
+                return (
+                    <Switch
+                        value={selectedBool}
+                        onChange={(e) => setSelectedBool(e)}
+                        disabled={loading}
+                        labels="checked/unchecked"
+                    />
+                );
             }
             case 'checkboxGroup': {
                 if (selectedOperator === 'has-checked') {

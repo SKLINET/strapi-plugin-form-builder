@@ -5,7 +5,7 @@ import { TextInput } from '../../../primitives/TextInput/TextInput';
 
 interface LabelAttributesProps {
     data: {
-        type: 'submit' | 'title' | 'message';
+        type: 'submit' | 'message';
         label: string | null;
         onFullWidth: boolean;
     };
@@ -13,7 +13,7 @@ interface LabelAttributesProps {
 }
 
 const LabelAttributes = ({
-    data: { label, onFullWidth },
+    data: { type, label, onFullWidth },
     app: {
         controls: { onFieldChange },
         loading,
@@ -27,15 +27,16 @@ const LabelAttributes = ({
             label={getSystemResource('attributes.label')}
             disabled={loading}
         />
-        <Switch
-            name="onFullWidth"
-            value={onFullWidth || false}
-            onChange={(e) => onFieldChange('onFullWidth', e)}
-            label={getSystemResource('attributes.onFullWidth')}
-            disabled={loading}
-            width="calc(50% - 8px)"
-            secondaryLabels
-        />
+        {type === 'message' && (
+            <Switch
+                name="onFullWidth"
+                value={onFullWidth || false}
+                onChange={(e) => onFieldChange('onFullWidth', e)}
+                label={getSystemResource('attributes.onFullWidth')}
+                disabled={loading}
+                width="calc(50% - 8px)"
+            />
+        )}
     </>
 );
 

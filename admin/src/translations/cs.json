@@ -41,6 +41,7 @@
     "attributes.onFullWidth": "Na celou šířku",
     "attributes.products": "Produkty",
     "attributes.fields": "Pole zahtívaná pro výpočet",
+    "attributes.conditionsEval": "Vyhodnocení podmínek",
     "select.placeholder": "Vyberte možnost",
     "select.field": "Vyberte pole",
     "select.operator": "Operátor",
@@ -64,5 +65,7 @@
     "yes": "Ano",
     "no": "Ne",
     "product.name": "Název produktu",
-    "product.price": "Cena produktu"
+    "product.price": "Cena produktu",
+    "and": "Všechny",
+    "or": "Alespoň jedna"
 }

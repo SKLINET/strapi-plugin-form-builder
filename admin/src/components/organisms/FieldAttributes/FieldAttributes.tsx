@@ -11,6 +11,8 @@ import { TitleAttributes } from './TitleAttributes/TitleAttributes';
 import { CheckboxGroupAttributes } from './CheckboxGroupAttributes/CheckboxGroupAttributes';
 import { ProductsSelectionAttributes } from './ProductsSelectionAttributes/ProductsSelectionAttributes';
 import { AmountAttributes } from './AmountAttributes/AmountAttributes';
+import { Switch } from '../../primitives/Switch/Switch';
+import { getSystemResource } from '../../../utils/getSystemResorce';
 
 interface FieldAttributesProps {
     app: IApp;
@@ -74,6 +76,15 @@ const FieldAttributes = ({ app }: FieldAttributesProps) => {
             )}
             <Flex direction="column" gap={4} bordered rounded="large" padding={8}>
                 <ConditionInput field={field} app={app} />
+                <Switch
+                    name="conditionsEval"
+                    value={field.conditionsEval === 'or' ? true : false}
+                    onChange={(e) => app.controls.onFieldChange('conditionsEval', e ? 'or' : 'and')}
+                    label={getSystemResource('attributes.conditionsEval')}
+                    disabled={app.loading}
+                    width="calc(50% - 8px)"
+                    labels="or/and"
+                />
             </Flex>
         </Flex>
     );

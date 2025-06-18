@@ -56,7 +56,6 @@ const ProductsSelectionAttributes = ({
             label={getSystemResource('attributes.onFullWidth')}
             disabled={loading}
             width="calc(50% - 8px)"
-            secondaryLabels
         />
         <Switch
             name="useOnly"
@@ -65,7 +64,6 @@ const ProductsSelectionAttributes = ({
             label={getSystemResource('attributes.useOnly')}
             disabled={loading}
             width="calc(50% - 8px)"
-            secondaryLabels
         />
     </>
 );

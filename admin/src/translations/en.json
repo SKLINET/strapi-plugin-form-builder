@@ -41,6 +41,7 @@
     "attributes.onFullWidth": "Full width",
     "attributes.products": "Products",
     "attributes.fields": "Fields for calculation",
+    "attributes.conditionsEval": "Evaluation of conditions",
     "select.placeholder": "Select option",
     "select.field": "Select field",
     "select.operator": "Operator",
@@ -64,5 +65,7 @@
     "yes": "Yes",
     "no": "No",
     "product.name": "Product name",
-    "product.price": "Product price"
+    "product.price": "Product price",
+    "and": "All",
+    "or": "At least one"
 }

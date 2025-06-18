@@ -35,7 +35,6 @@ const TitleAttributes = ({
             label={getSystemResource('attributes.isLarge')}
             disabled={loading}
             width="calc(50% - 8px)"
-            secondaryLabels
         />
         <Switch
             name="onFullWidth"
@@ -44,7 +43,6 @@ const TitleAttributes = ({
             label={getSystemResource('attributes.onFullWidth')}
             disabled={loading}
             width="calc(50% - 8px)"
-            secondaryLabels
         />
     </>
 );

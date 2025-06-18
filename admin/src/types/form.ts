@@ -32,6 +32,7 @@ export type IOperator = 'equals' | 'not-equals' | 'contains' | 'not-contains' | 
 export type IFormField = {
     id: string;
     onFullWidth: boolean;
+    conditionsEval?: 'and' | 'or';
     conditions?: ICondition[];
     type:
         | 'textinput'

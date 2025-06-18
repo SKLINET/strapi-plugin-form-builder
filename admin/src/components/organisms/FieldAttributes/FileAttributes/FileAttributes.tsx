@@ -121,7 +121,6 @@ const FileAttributes = ({
             label={getSystemResource('attributes.required')}
             disabled={loading}
             width="calc(50% - 8px)"
-            secondaryLabels
         />
         <Switch
             name="onFullWidth"
@@ -130,7 +129,6 @@ const FileAttributes = ({
             label={getSystemResource('attributes.onFullWidth')}
             disabled={loading}
             width="calc(50% - 8px)"
-            secondaryLabels
         />
         <Switch
             name="useOnly"
@@ -139,7 +137,6 @@ const FileAttributes = ({
             label={getSystemResource('attributes.useOnly')}
             disabled={loading}
             width="calc(50% - 8px)"
-            secondaryLabels
         />
     </>
 );

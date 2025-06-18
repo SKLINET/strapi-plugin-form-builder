@@ -44,6 +44,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     placeholder: null,
                     required: false,
                     useOnly: false,
+                    conditionsEval: 'and',
                     conditions: [],
                     onFullWidth: false,
                 };
@@ -61,6 +62,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     label: null,
                     required: false,
                     useOnly: false,
+                    conditionsEval: 'and',
                     conditions: [],
                     onFullWidth: false,
                 };
@@ -82,6 +84,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     allowedFileTypes: null,
                     maxFileSize: null,
                     useOnly: false,
+                    conditionsEval: 'and',
                     conditions: [],
                     onFullWidth: false,
                 };
@@ -101,6 +104,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     required: false,
                     options: [],
                     useOnly: false,
+                    conditionsEval: 'and',
                     conditions: [],
                     onFullWidth: false,
                 };
@@ -117,6 +121,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     type: type,
                     label: null,
                     options: [],
+                    conditionsEval: 'and',
                     conditions: [],
                     useOnly: false,
                     onFullWidth: false,
@@ -134,6 +139,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     type: type,
                     label: null,
                     products: [],
+                    conditionsEval: 'and',
                     conditions: [],
                     useOnly: false,
                     onFullWidth: false,
@@ -151,6 +157,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     label: null,
                     type: type,
                     fields: [],
+                    conditionsEval: 'and',
                     conditions: [],
                     useOnly: false,
                     onFullWidth: false,
@@ -167,6 +174,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     id: uuidv4(),
                     type: type,
                     label: null,
+                    conditionsEval: 'and',
                     conditions: [],
                     onFullWidth: false,
                 };
@@ -182,6 +190,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     type: type,
                     label: null,
                     isLarge: false,
+                    conditionsEval: 'and',
                     conditions: [],
                     onFullWidth: false,
                 };
@@ -195,6 +204,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                 const newField: IFormField = {
                     id: uuidv4(),
                     type: type,
+                    conditionsEval: 'and',
                     conditions: [],
                     onFullWidth: false,
                 };
@@ -209,6 +219,8 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
                     id: uuidv4(),
                     type: type,
                     codename: null,
+                    conditionsEval: 'and',
+                    conditions: [],
                     onFullWidth: false,
                 };
 
