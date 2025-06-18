@@ -4,21 +4,21 @@ export default [
 	{
 		method: 'GET',
 		path: '/built-form',
-		handler: 'builtFormController.find',
+		handler: 'built-form.find',
 	},
 	{
 		method: 'POST',
 		path: '/built-form',
-		handler: 'builtFormController.create',
+		handler: 'built-form.create',
 	},
 	{
 		method: 'DELETE',
 		path: '/built-form/:id',
-		handler: 'builtFormController.delete',
+		handler: 'built-form.delete',
 	},
 	{
 		method: 'PUT',
 		path: '/built-form/:id',
-		handler: 'builtFormController.update',
+		handler: 'built-form.update',
 	},
 ];

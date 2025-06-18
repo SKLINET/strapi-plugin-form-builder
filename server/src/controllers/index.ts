@@ -3,5 +3,5 @@
 import builtFormController from './built-form-controller';
 
 export default {
-    builtFormController,
+    'built-form': builtFormController,
 };
