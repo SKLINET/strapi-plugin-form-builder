@@ -20,6 +20,13 @@ export interface IProduct {
     price: number;
 }
 
+export type IProductRecord = {
+  id: string;
+  name: string;
+  totalPrice: number;
+  amount: number;
+};
+
 export interface ICondition {
     id: string;
     fieldId: string;

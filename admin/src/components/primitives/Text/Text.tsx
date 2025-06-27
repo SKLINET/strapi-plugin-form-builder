@@ -4,7 +4,7 @@ import { nbsp } from '../../../utils/nbsp';
 type TextProps = Record<string, any> & {
     label: string;
     size: 'xxl' | 'xl' | 'lg' | 'md' | 'sm' | 'xs';
-    color: 'black' | "gray";
+    color: 'black' | "gray" | "primary";
     width?: string;
 };
 
@@ -34,6 +34,8 @@ const Text = ({ label, size, color, width = '100%', ...rest }: TextProps) => {
                 return 'neutral900';
             case 'gray':
                 return 'neutral600';
+            case 'primary':
+                return '#0000ee';
             default:
                 return 'neutral900';
         }

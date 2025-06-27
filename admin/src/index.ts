@@ -1,11 +1,35 @@
 import { PLUGIN_ID } from './pluginId';
 import { Initializer } from './components/Initializer';
-import { PluginIcon } from './components/PluginIcon';
+import { FieldIcon, PluginIcon } from './components/PluginIcon';
 import { prefixPluginTranslations } from './utils/prefixPluginTranslations';
 import SideBanner from './components/views/SideBanner/SideBanner';
+import { getTranslation } from './utils/getTranslation';
 
 export default {
     register(app: any) {
+        app.customFields.register({
+            name: 'form-message-view',
+            pluginId: PLUGIN_ID,
+            type: 'json',
+            icon: FieldIcon,
+            intlLabel: {
+                id: getTranslation('settings.title'),
+                defaultMessage: 'Form message',
+            },
+            intlDescription: {
+                id: getTranslation('settings.description'),
+                defaultMessage: 'For display form message data',
+            },
+            isResizable: false,
+            default: 12,
+            components: {
+                Input: async () =>
+                    import(
+                        /* webpackChunkName: "video-field-input-component" */ './components/views/CustomField/CustomField'
+                    ),
+            },
+        });
+
         app.addMenuLink({
             to: `plugins/${PLUGIN_ID}`,
             icon: PluginIcon,
