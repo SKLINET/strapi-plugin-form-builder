@@ -6,7 +6,7 @@ import { getSystemResource } from '../utils/getSystemResorce';
 
 const HomePage = () => (
     <Flex minHeight="100svh" direction="column" alignItems="center" justifyContent="center">
-        <Box width="400px" bordered rounded="large" padding={8}>
+        <Box width="450px" bordered rounded="large" padding={8}>
             <Box width="80px" height="80px" marginLeft="auto" marginRight="auto">
                 <Logo />
             </Box>
