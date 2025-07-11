@@ -17,6 +17,7 @@ const LabelAttributes = ({
     app: {
         controls: { onFieldChange },
         loading,
+        config,
     },
 }: LabelAttributesProps) => (
     <>
@@ -24,7 +25,7 @@ const LabelAttributes = ({
             name="label"
             value={label || ''}
             onChange={(e) => onFieldChange('label', e)}
-            label={getSystemResource('attributes.label')}
+            label={getSystemResource('attributes.label', config.language)}
             disabled={loading}
         />
         {type === 'message' && (
@@ -32,9 +33,10 @@ const LabelAttributes = ({
                 name="onFullWidth"
                 value={onFullWidth || false}
                 onChange={(e) => onFieldChange('onFullWidth', e)}
-                label={getSystemResource('attributes.onFullWidth')}
+                label={getSystemResource('attributes.onFullWidth', config.language)}
                 disabled={loading}
                 width="calc(50% - 8px)"
+                config={config}
             />
         )}
     </>

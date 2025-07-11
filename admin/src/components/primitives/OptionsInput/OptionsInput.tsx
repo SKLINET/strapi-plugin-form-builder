@@ -7,6 +7,7 @@ import { TextInput } from '../TextInput/TextInput';
 import { Button } from '../Button/Button';
 import { getSystemResource } from '../../../utils/getSystemResorce';
 import { labelToJsonAttribute } from '../../../utils/labelToJsonAttribute';
+import { IConfig } from '../../../hooks/useConfig';
 
 interface OptionsInputProps extends Record<string, any> {
     name: string;
@@ -15,9 +16,10 @@ interface OptionsInputProps extends Record<string, any> {
     onChange: (e: ISelectedOption[]) => void;
     disabled?: boolean;
     width?: string;
+    config: IConfig;
 }
 
-const OptionsInput = ({ name, label, value, onChange, disabled, width = '100%', ...rest }: OptionsInputProps) => {
+const OptionsInput = ({ name, label, value, onChange, disabled, width = '100%', config, ...rest }: OptionsInputProps) => {
     const [inputValue, setInputValue] = useState('');
 
     const add = (e: string) => {
@@ -55,10 +57,10 @@ const OptionsInput = ({ name, label, value, onChange, disabled, width = '100%', 
                         value={inputValue}
                         onChange={setInputValue}
                         disabled={disabled}
-                        placeholder={getSystemResource('option.title')}
+                        placeholder={getSystemResource('option.title', config.language)}
                     />
                     <Button
-                        label={getSystemResource('add')}
+                        label={getSystemResource('add', config.language)}
                         onClick={() => add(inputValue)}
                         disabled={disabled || inputValue.length === 0}
                         size="L"

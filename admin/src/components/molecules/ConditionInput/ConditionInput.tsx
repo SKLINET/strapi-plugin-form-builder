@@ -26,6 +26,7 @@ const ConditionInput = ({
         fields,
         controls: { onFieldChange },
         loading,
+        config,
     },
     ...rest
 }: ConditionInputProps) => {
@@ -60,7 +61,7 @@ const ConditionInput = ({
     };
 
     const getButtonLabel = (field: IFormField | null, maxLength: number | undefined = undefined): string => {
-        if (!field) return getSystemResource('select.field');
+        if (!field) return getSystemResource('select.field', config.language);
 
         switch (field.type) {
             case 'textinput':
@@ -69,9 +70,12 @@ const ConditionInput = ({
             case 'checkbox':
             case 'select':
             case 'checkboxGroup':
-                return trimString(field.label || getSystemResource(`field.item.${field.type}`), maxLength);
+                return trimString(
+                    field.label || getSystemResource(`field.item.${field.type}`, config.language),
+                    maxLength,
+                );
             default:
-                return getSystemResource('select.field');
+                return getSystemResource('select.field', config.language);
         }
     };
 
@@ -80,7 +84,7 @@ const ConditionInput = ({
         return (
             <Button
                 key={operator}
-                label={getSystemResource(`operator.${operator}`)}
+                label={getSystemResource(`operator.${operator}`, config.language)}
                 variant={isSelected ? 'default' : 'tertiary'}
                 size="M"
                 fullWidth
@@ -138,8 +142,8 @@ const ConditionInput = ({
             <SelectButton
                 buttonLabel={
                     selectedOperator
-                        ? getSystemResource(`operator.${selectedOperator}`)
-                        : getSystemResource('select.operator')
+                        ? getSystemResource(`operator.${selectedOperator}`, config.language)
+                        : getSystemResource('select.operator', config.language)
                 }
                 buttonVariant={selectedOperator ? 'success-light' : 'tertiary'}
                 disabled={loading}
@@ -183,6 +187,7 @@ const ConditionInput = ({
                         onChange={(e) => setSelectedBool(e)}
                         disabled={loading}
                         labels="checked/unchecked"
+                        config={config}
                     />
                 );
             }
@@ -191,7 +196,9 @@ const ConditionInput = ({
                     return (
                         <SelectButton
                             buttonLabel={
-                                selectedOption ? selectedOption.label : getSystemResource('select.placeholder')
+                                selectedOption
+                                    ? selectedOption.label
+                                    : getSystemResource('select.placeholder', config.language)
                             }
                             buttonVariant={selectedOption ? 'success-light' : 'tertiary'}
                             disabled={loading}
@@ -226,7 +233,9 @@ const ConditionInput = ({
                     return (
                         <SelectButton
                             buttonLabel={
-                                selectedOption ? selectedOption.label : getSystemResource('select.placeholder')
+                                selectedOption
+                                    ? selectedOption.label
+                                    : getSystemResource('select.placeholder', config.language)
                             }
                             buttonVariant={selectedOption ? 'success-light' : 'tertiary'}
                             disabled={loading}
@@ -310,7 +319,7 @@ const ConditionInput = ({
 
         return (
             <Button
-                label={getSystemResource('add')}
+                label={getSystemResource('add', config.language)}
                 onClick={() =>
                     add({ id: uuidv4(), fieldId: selectedField.id, operator: selectedOperator, value: value })
                 }
@@ -324,16 +333,19 @@ const ConditionInput = ({
 
     return (
         <Flex width={width} {...rest} direction="column" gap={1}>
-            <Text color="black" size="xs" label={getSystemResource('attributes.conditions')} />
+            <Text color="black" size="xs" label={getSystemResource('attributes.conditions', config.language)} />
             <Flex bordered rounded="smallest" padding={4} direction="column" gap={6}>
                 {conditions.length > 0 && (
                     <Flex flexWrap="wrap" gap={1}>
                         {conditions.map((condition) => {
                             const getLabel = () => {
                                 const field = fields.find((e) => e.id === condition.fieldId) as any;
-                                if (!field) return getSystemResource(`deleted.field`);
+                                if (!field) return getSystemResource(`deleted.field`, config.language);
 
-                                const operatorLabel = getSystemResource(`operator.${condition.operator}`);
+                                const operatorLabel = getSystemResource(
+                                    `operator.${condition.operator}`,
+                                    config.language,
+                                );
                                 let valueLabel = '';
 
                                 switch (field.type) {
@@ -345,6 +357,7 @@ const ConditionInput = ({
                                     case 'checkbox':
                                         valueLabel = getSystemResource(
                                             (condition.value as boolean) ? 'checked' : 'unchecked',
+                                            config.language,
                                         ).toLowerCase();
                                         break;
                                     case 'checkboxGroup':

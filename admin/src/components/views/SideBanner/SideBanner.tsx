@@ -9,8 +9,11 @@ import { getSystemResource } from '../../../utils/getSystemResorce';
 import { Box } from '../../primitives/Box/Box';
 import { Text } from '../../primitives/Text/Text';
 import { Button } from '../../primitives/Button/Button';
+import { useConfig } from '../../../hooks/useConfig';
 
 const SideBanner = () => {
+    const config = useConfig();
+
     const [form, setForm] = useState<IBuiltForm | null>(null);
     const [loading, setLoading] = useState(false);
 
@@ -45,12 +48,20 @@ const SideBanner = () => {
     // Disable button when entity is not created
     const disabled = !context?.id || !form;
 
+    if (!config) return <></>;
+
     return (
         <Box marginTop={4}>
             <Box>
                 <Divider />
             </Box>
-            <Text size="sm" variant="sigma" color="gray" label={getSystemResource('side.banner.title')} marginTop={4} />
+            <Text
+                size="sm"
+                variant="sigma"
+                color="gray"
+                label={getSystemResource('side.banner.title', config.language)}
+                marginTop={4}
+            />
             <Button
                 onClick={() =>
                     window.open(
@@ -64,7 +75,7 @@ const SideBanner = () => {
                 disabled={disabled}
                 fullWidth
                 loading={loading}
-                label={getSystemResource('side.banner.button')}
+                label={getSystemResource('side.banner.button', config.language)}
                 marginTop={3}
             />
         </Box>

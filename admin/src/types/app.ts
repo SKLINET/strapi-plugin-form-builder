@@ -1,3 +1,4 @@
+import { IConfig } from '../hooks/useConfig';
 import { IBuiltForm, IFormField } from './form';
 
 export interface IApp {
@@ -18,4 +19,5 @@ export interface IApp {
         toggleAttributes: () => void;
     };
     locale: string;
+    config: IConfig;
 }

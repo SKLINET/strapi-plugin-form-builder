@@ -1,6 +1,7 @@
 import { SingleSelect, SingleSelectOption, Field } from '@strapi/design-system';
 import { nbsp } from '../../../utils/nbsp';
 import { getSystemResource } from '../../../utils/getSystemResorce';
+import { IConfig } from '../../../hooks/useConfig';
 
 interface SelectProps extends Record<string, any> {
     name: string;
@@ -11,6 +12,7 @@ interface SelectProps extends Record<string, any> {
     disabled?: boolean;
     placeholder?: string;
     width?: string;
+    config: IConfig;
 }
 
 const Select = ({
@@ -22,6 +24,7 @@ const Select = ({
     options,
     width = '100%',
     placeholder,
+    config,
     ...rest
 }: SelectProps) => (
     <Field.Root width={width} {...rest}>
@@ -30,7 +33,7 @@ const Select = ({
             value={value}
             onChange={onChange}
             disabled={disabled}
-            placeholder={placeholder || getSystemResource('select.placeholder')}
+            placeholder={placeholder || getSystemResource('select.placeholder', config.language)}
             name={name}
         >
             {options.map((option) => (

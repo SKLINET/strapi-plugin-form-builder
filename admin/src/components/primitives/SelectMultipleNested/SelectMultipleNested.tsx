@@ -1,6 +1,7 @@
 import { MultiSelectNested, Field } from '@strapi/design-system';
 import { getSystemResource } from '../../../utils/getSystemResorce';
 import { nbsp } from '../../../utils/nbsp';
+import { IConfig } from '../../../hooks/useConfig';
 
 interface SelectMultipleNestedProps extends Record<string, any> {
     name: string;
@@ -11,6 +12,7 @@ interface SelectMultipleNestedProps extends Record<string, any> {
     disabled?: boolean;
     placeholder?: string;
     width?: string;
+    config: IConfig;
 }
 
 const SelectMultipleNested = ({
@@ -22,6 +24,7 @@ const SelectMultipleNested = ({
     options,
     width = '100%',
     placeholder,
+    config,
     ...rest
 }: SelectMultipleNestedProps) => (
     <Field.Root width={width} {...rest}>
@@ -30,7 +33,7 @@ const SelectMultipleNested = ({
             value={value}
             onChange={onChange}
             disabled={disabled}
-            placeholder={placeholder || getSystemResource('select.placeholder')}
+            placeholder={placeholder || getSystemResource('select.placeholder', config.language)}
             options={options}
             name={name}
             withTags

@@ -11,14 +11,16 @@ import { Controller } from '../../organisms/Controller/Controller';
 import { FieldAttributes } from '../../organisms/FieldAttributes/FieldAttributes';
 import { v4 as uuidv4 } from 'uuid';
 import { labelToJsonAttribute } from '../../../utils/labelToJsonAttribute';
+import { IConfig } from '../../../hooks/useConfig';
 
 interface BuilderProps {
     form: IBuiltForm;
     controls: UseBuiltFormProps;
     updateForm: (data: IBuiltForm) => void;
+    config: IConfig;
 }
 
-const Builder = ({ form, controls, updateForm }: BuilderProps) => {
+const Builder = ({ form, controls, updateForm, config }: BuilderProps) => {
     const [formData, setFormData] = useState(form.data || []);
 
     const [activeField, setActiveField] = useState<string | null>(null);
@@ -293,8 +295,8 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
         }
     };
 
-    const successMessage = getSystemResource('success.message');
-    const errorMessage = getSystemResource('error.message');
+    const successMessage = getSystemResource('success.message', config.language);
+    const errorMessage = getSystemResource('error.message', config.language);
 
     const saveForm = async () => {
         setLoading(true);
@@ -415,6 +417,7 @@ const Builder = ({ form, controls, updateForm }: BuilderProps) => {
             toggleAttributes: () => setHideAttributes(!hideAttributes),
         },
         locale: locale,
+        config: config,
     };
 
     return (

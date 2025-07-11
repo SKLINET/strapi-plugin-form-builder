@@ -80,10 +80,11 @@ const FieldAttributes = ({ app }: FieldAttributesProps) => {
                     name="conditionsEval"
                     value={field.conditionsEval === 'or' ? true : false}
                     onChange={(e) => app.controls.onFieldChange('conditionsEval', e ? 'or' : 'and')}
-                    label={getSystemResource('attributes.conditionsEval')}
+                    label={getSystemResource('attributes.conditionsEval', app.config.language)}
                     disabled={app.loading}
                     width="calc(50% - 8px)"
                     labels="or/and"
+                    config={app.config}
                 />
             </Flex>
         </Flex>

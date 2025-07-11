@@ -5,6 +5,7 @@ import { IconButton } from '../../primitives/IconButton/IconButton';
 import { Text } from '../../primitives/Text/Text';
 import { getSystemResource } from '../../../utils/getSystemResorce';
 import { FieldIcon } from '../../primitives/FieldIcon/FieldIcon';
+import { IConfig } from '../../../hooks/useConfig';
 
 interface FieldItemProps {
     data: IFormField;
@@ -13,9 +14,10 @@ interface FieldItemProps {
     onRemove: () => void;
     disabled?: boolean;
     withConditions?: boolean;
+    config: IConfig;
 }
 
-const FieldItem = ({ data, isActive, onClick, onRemove, disabled, withConditions }: FieldItemProps) => {
+const FieldItem = ({ data, isActive, onClick, onRemove, disabled, withConditions, config }: FieldItemProps) => {
     const getLabel = () => {
         switch (data.type) {
             case 'textinput':
@@ -56,7 +58,11 @@ const FieldItem = ({ data, isActive, onClick, onRemove, disabled, withConditions
                         <FieldIcon type={data.type} />
                     </Flex>
                     <Text
-                        label={label && label.length > 0 ? label : getSystemResource('field.item.' + data.type)}
+                        label={
+                            label && label.length > 0
+                                ? label
+                                : getSystemResource('field.item.' + data.type, config.language)
+                        }
                         color={label && label.length > 0 ? 'black' : 'gray'}
                         size="sm"
                         textAlign="left"

@@ -1,3 +1,4 @@
+import { useConfig } from '../../../hooks/useConfig';
 import { IProductRecord, ISelectedOption } from '../../../types/form';
 import { getFormattedPrice } from '../../../utils/getFormattedPrice';
 import { getSystemResource } from '../../../utils/getSystemResorce';
@@ -24,6 +25,10 @@ const formatFieldName = (key: string) => {
 };
 
 const CustomField = ({ value }: CustomFieldProps) => {
+    const config = useConfig();
+
+    if (!config) return <></>;
+
     const records: JSX.Element[] = [];
 
     const renderValue = (value: any) => {
@@ -32,7 +37,7 @@ const CustomField = ({ value }: CustomFieldProps) => {
         }
 
         if (typeof value === 'boolean') {
-            return <Text label={getSystemResource(value ? 'yes' : 'no')} size="sm" color="gray" />;
+            return <Text label={getSystemResource(value ? 'yes' : 'no', config.language)} size="sm" color="gray" />;
         }
 
         if (typeof value === 'number') {

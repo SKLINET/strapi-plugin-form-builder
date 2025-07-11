@@ -1,16 +1,18 @@
 import { MultiSelect, MultiSelectOption, Field } from '@strapi/design-system';
 import { nbsp } from '../../../utils/nbsp';
 import { getSystemResource } from '../../../utils/getSystemResorce';
+import { IConfig } from '../../../hooks/useConfig';
 
 interface SelectMultipleProps extends Record<string, any> {
     name: string;
     label?: string;
     value: string[];
     onChange: (e: string[]) => void;
-    options: { label: string; value: string }[]
+    options: { label: string; value: string }[];
     disabled?: boolean;
     placeholder?: string;
     width?: string;
+    config: IConfig;
 }
 
 const SelectMultiple = ({
@@ -22,6 +24,7 @@ const SelectMultiple = ({
     options,
     width = '100%',
     placeholder,
+    config,
     ...rest
 }: SelectMultipleProps) => (
     <Field.Root width={width} {...rest}>
@@ -30,7 +33,7 @@ const SelectMultiple = ({
             value={value}
             onChange={onChange}
             disabled={disabled}
-            placeholder={placeholder || getSystemResource('select.placeholder')}
+            placeholder={placeholder || getSystemResource('select.placeholder', config.language)}
             name={name}
             withTags
         >

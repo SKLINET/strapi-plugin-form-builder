@@ -17,6 +17,7 @@ const SpecialAttributes = ({
     app: {
         controls: { onFieldChange },
         loading,
+        config,
     },
 }: SpecialAttributesProps) => (
     <>
@@ -24,16 +25,17 @@ const SpecialAttributes = ({
             name="codename"
             value={codename || ''}
             onChange={(e) => onFieldChange('codename', e)}
-            label={getSystemResource('attributes.codename')}
+            label={getSystemResource('attributes.codename', config.language)}
             disabled={loading}
         />
         <Switch
             name="onFullWidth"
             value={onFullWidth || false}
             onChange={(e) => onFieldChange('onFullWidth', e)}
-            label={getSystemResource('attributes.onFullWidth')}
+            label={getSystemResource('attributes.onFullWidth', config.language)}
             disabled={loading}
             width="calc(50% - 8px)"
+            config={config}
         />
     </>
 );

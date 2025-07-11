@@ -14,6 +14,7 @@ const Controller = ({
         activeField,
         controls: { removeField, focusField },
         loading,
+        config,
     },
 }: Controller) => (
     <Flex direction="column" gap={10} width="40%" shrink={0}>
@@ -34,13 +35,14 @@ const Controller = ({
                                 (e.conditions || []).filter((e) => fields.map((k) => k.id).includes(e.fieldId)).length >
                                 0
                             }
+                            config={config}
                         />
                     );
                 })}
             </Flex>
         ) : (
             <Flex bordered rounded="small" padding={7}>
-                <Text size="sm" color="black" label={getSystemResource('no.fields')} textAlign="center" />
+                <Text size="sm" color="black" label={getSystemResource('no.fields', config.language)} textAlign="center" />
             </Flex>
         )}
     </Flex>

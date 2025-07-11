@@ -8,6 +8,7 @@ import { Button } from '../Button/Button';
 import { getSystemResource } from '../../../utils/getSystemResorce';
 import { labelToJsonAttribute } from '../../../utils/labelToJsonAttribute';
 import { NumberInput } from '../NumberInput/NumberInput';
+import { IConfig } from '../../../hooks/useConfig';
 
 interface ProductsInputProps extends Record<string, any> {
     name: string;
@@ -16,9 +17,19 @@ interface ProductsInputProps extends Record<string, any> {
     onChange: (e: IProduct[]) => void;
     disabled?: boolean;
     width?: string;
+    config: IConfig;
 }
 
-const ProductsInput = ({ name, label, value, onChange, disabled, width = '100%', ...rest }: ProductsInputProps) => {
+const ProductsInput = ({
+    name,
+    label,
+    value,
+    onChange,
+    disabled,
+    width = '100%',
+    config,
+    ...rest
+}: ProductsInputProps) => {
     const [inputValue, setInputValue] = useState('');
     const [inputPrice, setInputPrice] = useState<number | undefined>(undefined);
 
@@ -62,18 +73,18 @@ const ProductsInput = ({ name, label, value, onChange, disabled, width = '100%',
                         value={inputValue}
                         onChange={setInputValue}
                         disabled={disabled}
-                        label={getSystemResource('product.name')}
+                        label={getSystemResource('product.name', config.language)}
                     />
                     <NumberInput
                         name="price"
                         value={inputPrice}
                         onChange={(e) => setInputPrice(Math.max(e || 0, 0))}
                         disabled={disabled}
-                        label={getSystemResource('product.price')}
+                        label={getSystemResource('product.price', config.language)}
                         width="300px"
                     />
                     <Button
-                        label={getSystemResource('add')}
+                        label={getSystemResource('add', config.language)}
                         onClick={() => add(inputValue, inputPrice || 0)}
                         disabled={disabled || inputValue.length === 0}
                         size="L"

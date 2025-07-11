@@ -8,7 +8,7 @@ export default {
             info: {
                 singularName: 'built-form',
                 pluralName: 'built-forms',
-                displayName: '📋 Formuláře',
+                displayName: '📋 Forms',
             },
             pluginOptions: {
                 'content-manager': {

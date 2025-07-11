@@ -27,6 +27,7 @@ const FileAttributes = ({
     app: {
         controls: { onFieldChange },
         loading,
+        config,
     },
 }: FileAttributesProps) => (
     <>
@@ -34,34 +35,34 @@ const FileAttributes = ({
             name="name"
             value={name || ''}
             onChange={(e) => onFieldChange('name', e)}
-            label={getSystemResource('attributes.name')}
+            label={getSystemResource('attributes.name', config.language)}
             placeholder={labelToJsonAttribute(label || '')}
             disabled={loading}
-            hint={getSystemResource('attributes.name.hint')}
+            hint={getSystemResource('attributes.name.hint', config.language)}
         />
         <TextInput
             name="label"
             value={label || ''}
             onChange={(e) => onFieldChange('label', e)}
-            label={getSystemResource('attributes.label')}
+            label={getSystemResource('attributes.label', config.language)}
             disabled={loading}
         />
         <TextInput
             name="placeholder"
             value={placeholder || ''}
             onChange={(e) => onFieldChange('placeholder', e)}
-            label={getSystemResource('attributes.placeholder')}
+            label={getSystemResource('attributes.placeholder', config.language)}
             disabled={loading}
         />
         <SelectMultipleNested
             name="allowedFileTypes"
             value={allowedFileTypes || []}
             onChange={(e) => onFieldChange('allowedFileTypes', e)}
-            label={getSystemResource('attributes.allowedFileTypes')}
+            label={getSystemResource('attributes.allowedFileTypes', config.language)}
             disabled={loading}
             options={[
                 {
-                    label: getSystemResource('images'),
+                    label: getSystemResource('images', config.language),
                     children: [
                         { label: 'JPEG', value: 'image/jpeg' },
                         { label: 'PNG', value: 'image/png' },
@@ -70,7 +71,7 @@ const FileAttributes = ({
                     ],
                 },
                 {
-                    label: getSystemResource('files'),
+                    label: getSystemResource('files', config.language),
                     children: [
                         { label: 'Zip', value: 'application/zip' },
                         { label: 'PDF', value: 'application/pdf' },
@@ -83,26 +84,27 @@ const FileAttributes = ({
                     ],
                 },
                 {
-                    label: getSystemResource('audios'),
+                    label: getSystemResource('audios', config.language),
                     children: [
                         { label: 'MP3', value: 'audio/mpeg' },
                         { label: 'WAV', value: 'audio/wav' },
                     ],
                 },
                 {
-                    label: getSystemResource('videos'),
+                    label: getSystemResource('videos', config.language),
                     children: [
                         { label: 'MP4', value: 'video/mp4' },
                         { label: 'AVI', value: 'video/x-msvideo' },
                     ],
                 },
             ]}
+            config={config}
         />
         <NumberInput
             name="maxFileCount"
             value={maxFileCount || undefined}
             onChange={(e) => onFieldChange('maxFileCount', e)}
-            label={getSystemResource('attributes.maxFileCount')}
+            label={getSystemResource('attributes.maxFileCount', config.language)}
             disabled={loading}
             width="calc(50% - 8px)"
         />
@@ -110,7 +112,7 @@ const FileAttributes = ({
             name="maxFileSize"
             value={maxFileSize || undefined}
             onChange={(e) => onFieldChange('maxFileSize', e)}
-            label={getSystemResource('attributes.maxFileSize')}
+            label={getSystemResource('attributes.maxFileSize', config.language)}
             disabled={loading}
             width="calc(50% - 8px)"
         />
@@ -118,25 +120,28 @@ const FileAttributes = ({
             name="required"
             value={required}
             onChange={(e) => onFieldChange('required', e)}
-            label={getSystemResource('attributes.required')}
+            label={getSystemResource('attributes.required', config.language)}
             disabled={loading}
             width="calc(50% - 8px)"
+            config={config}
         />
         <Switch
             name="onFullWidth"
             value={onFullWidth || false}
             onChange={(e) => onFieldChange('onFullWidth', e)}
-            label={getSystemResource('attributes.onFullWidth')}
+            label={getSystemResource('attributes.onFullWidth', config.language)}
             disabled={loading}
             width="calc(50% - 8px)"
+            config={config}
         />
         <Switch
             name="useOnly"
             value={useOnly}
             onChange={(e) => onFieldChange('useOnly', e)}
-            label={getSystemResource('attributes.useOnly')}
+            label={getSystemResource('attributes.useOnly', config.language)}
             disabled={loading}
             width="calc(50% - 8px)"
+            config={config}
         />
     </>
 );

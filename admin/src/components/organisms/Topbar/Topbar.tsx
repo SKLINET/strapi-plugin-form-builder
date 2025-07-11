@@ -25,6 +25,7 @@ const Topbar = ({
         hideAttributes,
         controls: { moveFieldUp, moveFieldDown, addField, saveForm, toggleAttributes },
         locale,
+        config,
     },
 }: TopbarProps) => {
     const titleRef = useRef<HTMLDivElement>(null);
@@ -47,17 +48,21 @@ const Topbar = ({
         return () => window.removeEventListener('resize', setMaxWidth);
     }, []);
 
-    const renderFiledButton = (type: IFormField['type']) => (
-        <Button
-            label={getSystemResource(`field.item.${type}`)}
-            variant="tertiary"
-            width="calc(50% - 6px)"
-            size="M"
-            disabled={loading}
-            onClick={() => addField(type)}
-            startIcon={<FieldIcon type={type} size="s" />}
-        />
-    );
+    const renderFiledButton = (type: IFormField['type']) => {
+        if (!(config.fields === '*' || config.fields.includes(type))) return null;
+
+        return (
+            <Button
+                label={getSystemResource(`field.item.${type}`, config.language)}
+                variant="tertiary"
+                width="calc(50% - 6px)"
+                size="M"
+                disabled={loading}
+                onClick={() => addField(type)}
+                startIcon={<FieldIcon type={type} size="s" />}
+            />
+        );
+    };
 
     return (
         <Flex
@@ -74,19 +79,19 @@ const Topbar = ({
             <Flex grow={1} direction="column" gap={6}>
                 {unsavedChanges ? (
                     <Dialog
-                        title={getSystemResource('unsaved.changes.title')}
-                        body={getSystemResource('unsaved.changes.message')}
+                        title={getSystemResource('unsaved.changes.title', config.language)}
+                        body={getSystemResource('unsaved.changes.message', config.language)}
                         icon={<WarningCircle fill="danger600" />}
                         trigger={
                             <TextButton
-                                label={getSystemResource('back')}
+                                label={getSystemResource('back', config.language)}
                                 disabled={loading}
                                 startIcon={<ArrowLeft name="cancel" />}
                             />
                         }
                         cancel={
                             <Button
-                                label={getSystemResource('unsaved.changes.discard')}
+                                label={getSystemResource('unsaved.changes.discard', config.language)}
                                 size="M"
                                 variant="tertiary"
                                 fullWidth
@@ -94,7 +99,7 @@ const Topbar = ({
                         }
                         action={
                             <Button
-                                label={getSystemResource('unsaved.changes.confirm')}
+                                label={getSystemResource('unsaved.changes.confirm', config.language)}
                                 onClick={() =>
                                     window.open(
                                         `/admin/content-manager/collection-types/plugin::form-builder.built-form/${form.documentId}?plugins%5Bi18n%5D%5Blocale%5D=${locale}`,
@@ -109,7 +114,7 @@ const Topbar = ({
                     />
                 ) : (
                     <TextButton
-                        label={getSystemResource('back')}
+                        label={getSystemResource('back', config.language)}
                         onClick={() =>
                             window.open(
                                 `/admin/content-manager/collection-types/plugin::form-builder.built-form/${form.documentId}?plugins%5Bi18n%5D%5Blocale%5D=${locale}`,
@@ -179,7 +184,7 @@ const Topbar = ({
                 </Popover.Root>
                 <Button
                     width="140px"
-                    label={getSystemResource('save')}
+                    label={getSystemResource('save', config.language)}
                     onClick={saveForm}
                     size="L"
                     variant="success-light"

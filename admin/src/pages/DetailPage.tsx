@@ -5,8 +5,11 @@ import { Flex } from '../components/primitives/Flex/Flex';
 import { IBuiltForm } from '../types/form';
 import Builder from '../components/views/Builder/Builder';
 import { getLocale } from '../utils/getLocale';
+import { useConfig } from '../hooks/useConfig';
 
 const DetailPage = () => {
+    const config = useConfig();
+
     const [form, setForm] = useState<IBuiltForm | null>(null);
     const [loaded, setLoaded] = useState(false);
 
@@ -29,6 +32,8 @@ const DetailPage = () => {
         fetchForm();
     }, []);
 
+    if (!config) return <></>;
+
     if (!loaded) return <Page.Loading />;
 
     if (!form)
@@ -38,7 +43,7 @@ const DetailPage = () => {
             </Flex>
         );
 
-    return <Builder form={form} controls={controls} updateForm={(e) => setForm(e)} />;
+    return <Builder form={form} controls={controls} updateForm={(e) => setForm(e)} config={config} />;
 };
 
 export { DetailPage };
