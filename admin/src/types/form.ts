@@ -8,34 +8,6 @@ export interface IBuiltForm {
     publishedAt: string;
 }
 
-export interface ISelectedOption {
-    key: string;
-    label: string;
-}
-
-export interface IProduct {
-    id: string;
-    name: string;
-    label: string;
-    price: number;
-}
-
-export type IProductRecord = {
-  id: string;
-  name: string;
-  totalPrice: number;
-  amount: number;
-};
-
-export interface ICondition {
-    id: string;
-    fieldId: string;
-    operator: IOperator;
-    value: string | boolean | ISelectedOption | undefined;
-}
-
-export type IOperator = 'equals' | 'not-equals' | 'contains' | 'not-contains' | 'empty' | 'not-empty' | 'has-checked';
-
 export type IFormField = {
     id: string;
     onFullWidth: boolean;
@@ -159,3 +131,31 @@ export type IFormField = {
           codename: string | null;
       }
 );
+
+export interface ISelectedOption {
+    key: string;
+    label: string;
+}
+
+export interface IProduct {
+    id: string;
+    name: string;
+    label: string;
+    price: number;
+}
+
+export type IProductRecord = {
+    id: string;
+    name: string;
+    totalPrice: number;
+    amount: number;
+};
+
+export type IOperator = 'equals' | 'not-equals' | 'contains' | 'not-contains' | 'empty' | 'not-empty' | 'has-checked';
+
+export interface ICondition {
+    id: string;
+    fieldId: string;
+    operator: IOperator;
+    value: string | boolean | ISelectedOption | undefined;
+}
