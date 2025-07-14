@@ -6,7 +6,7 @@ A **visual form-builder plugin** for **Strapi v5** that lets you design and mana
 ## ✨ Features
 - **Auto-generated Content Type:** `Forms` (collection name: **`built-forms`**)
 - Form designer
-- Multilingual UI (English `en` / Czech `cs`)
+- Multilingual UI (English `en`, Czech `cs`, Slovak `sk`, German `de`, French `fr`, Spanish `es`)
 - Fine-grained field-type allow-listing
 - Supports a rich set of input components (text, e-mail, file upload, product pickers, etc.)
 - Conditional fields
@@ -37,7 +37,7 @@ module.exports = {
   'form-builder': {
     enabled: true,
     config: {
-      language: 'en',      // 'en' (default) | 'cs'
+      language: 'en',      // 'en' (default) | 'cs' | 'sk' | 'de' | 'fr' | 'es'
       fields: '*',         // '*' = all field types, OR array of allowed types
       allowConditions: false, // Enables conditional logic between fields
       allowFullWidth: false,  // Allows setting full-width display for fields
@@ -49,7 +49,7 @@ module.exports = {
 
 | Option            | Type                | Purpose                                                                 |
 |-------------------|---------------------|-------------------------------------------------------------------------|
-| `language`        | `'en'` \| `'cs'`    | Sets the plugin’s UI language.                                         |
+| `language`        | `'en'` \| `'cs'` \| `'sk'` \| `'de'` \| `'fr'` \| `'es'` | Sets the plugin’s UI language. |
 | `fields`          | `"*"` \| `string[]` | Which field types a user may add. Use `"*"` for **all** types.         |
 | `allowConditions` | `boolean`           | Enables setting visibility conditions between fields.                  |
 | `allowFullWidth`  | `boolean`           | Allows toggling between full and half-width layout for form fields.    |
