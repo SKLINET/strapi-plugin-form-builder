@@ -135,13 +135,15 @@ const Topbar = ({
                 </div>
             </Flex>
             <Flex width="fit-content" shrink={0} gap={3}>
-                <IconButton
-                    icon={hideAttributes ? <EyeStriked /> : <Eye />}
-                    variant={hideAttributes ? 'danger-light' : 'tertiary'}
-                    size="L"
-                    onClick={() => toggleAttributes()}
-                    disabled={!activeField || loading}
-                />
+                {config.allowConditions && (
+                    <IconButton
+                        icon={hideAttributes ? <EyeStriked /> : <Eye />}
+                        variant={hideAttributes ? 'danger-light' : 'tertiary'}
+                        size="L"
+                        onClick={() => toggleAttributes()}
+                        disabled={!activeField || loading}
+                    />
+                )}
                 <IconButton
                     icon={<ArrowUp />}
                     variant="tertiary"

@@ -6,6 +6,9 @@ import { IFormField } from '../types/form';
 export interface IConfig {
     language: 'cs' | 'en';
     fields: '*' | IFormField['type'][];
+    allowConditions: boolean;
+    allowFullWidth: boolean;
+    allowUseOnly: boolean;
 }
 
 export const useConfig = () => {

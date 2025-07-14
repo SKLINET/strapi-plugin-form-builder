@@ -74,19 +74,21 @@ const FieldAttributes = ({ app }: FieldAttributesProps) => {
                     {renderContent()}
                 </Flex>
             )}
-            <Flex direction="column" gap={4} bordered rounded="large" padding={8}>
-                <ConditionInput field={field} app={app} />
-                <Switch
-                    name="conditionsEval"
-                    value={field.conditionsEval === 'or' ? true : false}
-                    onChange={(e) => app.controls.onFieldChange('conditionsEval', e ? 'or' : 'and')}
-                    label={getSystemResource('attributes.conditionsEval', app.config.language)}
-                    disabled={app.loading}
-                    width="calc(50% - 8px)"
-                    labels="or/and"
-                    config={app.config}
-                />
-            </Flex>
+            {app.config.allowConditions && (
+                <Flex direction="column" gap={4} bordered rounded="large" padding={8}>
+                    <ConditionInput field={field} app={app} />
+                    <Switch
+                        name="conditionsEval"
+                        value={field.conditionsEval === 'or' ? true : false}
+                        onChange={(e) => app.controls.onFieldChange('conditionsEval', e ? 'or' : 'and')}
+                        label={getSystemResource('attributes.conditionsEval', app.config.language)}
+                        disabled={app.loading}
+                        width="calc(50% - 8px)"
+                        labels="or/and"
+                        config={app.config}
+                    />
+                </Flex>
+            )}
         </Flex>
     );
 };

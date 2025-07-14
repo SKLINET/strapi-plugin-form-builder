@@ -3,8 +3,6 @@
 
 A **visual form-builder plugin** for **Strapi v5** that lets you design and manage forms straight from the admin panel.
 
----
-
 ## ✨ Features
 - **Auto-generated Content Type:** `Forms` (collection name: **`built-forms`**)
 - Form designer
@@ -12,16 +10,13 @@ A **visual form-builder plugin** for **Strapi v5** that lets you design and mana
 - Fine-grained field-type allow-listing
 - Supports a rich set of input components (text, e-mail, file upload, product pickers, etc.)
 - Conditional fields
-
----
+- Configurable layout and field behavior (width, conditional visibility, “use-only” fields)
 
 ## 🚀 Installation
 
 ```bash
 npm i @sklinet/strapi-plugin-form-builder
 ```
-
----
 
 ## 🔌 Enable the plugin
 
@@ -35,8 +30,6 @@ module.exports = {
 };
 ```
 
----
-
 ## ⚙️ Optional configuration
 
 ```js
@@ -46,17 +39,21 @@ module.exports = {
     config: {
       language: 'en',      // 'en' (default) | 'cs'
       fields: '*',         // '*' = all field types, OR array of allowed types
+      allowConditions: false, // Enables conditional logic between fields
+      allowFullWidth: false,  // Allows setting full-width display for fields
+      allowUseOnly: false,    // Enables fields that are excluded from form submissions
     },
   },
 };
 ```
 
-| Option     | Type                         | Purpose                                                          |
-|------------|-----------------------------|------------------------------------------------------------------|
-| `language` | `'en'` \| `'cs'`            | Sets the plugin’s UI language.                                   |
-| `fields`   | `"*"` \| `string[]`         | Which field types a user may add. Use `"*"` for **all** types.   |
-
----
+| Option            | Type                | Purpose                                                                 |
+|-------------------|---------------------|-------------------------------------------------------------------------|
+| `language`        | `'en'` \| `'cs'`    | Sets the plugin’s UI language.                                         |
+| `fields`          | `"*"` \| `string[]` | Which field types a user may add. Use `"*"` for **all** types.         |
+| `allowConditions` | `boolean`           | Enables setting visibility conditions between fields.                  |
+| `allowFullWidth`  | `boolean`           | Allows toggling between full and half-width layout for form fields.    |
+| `allowUseOnly`    | `boolean`           | Lets you mark fields as “use only” (not stored in submission results). |
 
 ## 📋 Supported field types
 
@@ -67,8 +64,6 @@ module.exports = {
 'submit' | 'title' | 'message' | 'divider' | 'special'
 ```
 
----
-
 ## 🗄️ Data model
 
 | Collection | UID                      | Notes                           |
@@ -76,11 +71,6 @@ module.exports = {
 | **Forms**  | `plugin::form-builder.form` | Auto-generated; collection name **`built-forms`** |
 
 Each saved form instance is stored as a document in **`built-forms`**, making it manageable like any other Strapi content type.
-
----
-
-
----
 
 ## 🧩 TypeScript Interfaces
 
@@ -250,13 +240,9 @@ export interface ICondition {
 }
 ```
 
----
-
 ## 🪪 License
 
 [MIT](./LICENSE)
-
----
 
 ## 👤 Maintainer
 

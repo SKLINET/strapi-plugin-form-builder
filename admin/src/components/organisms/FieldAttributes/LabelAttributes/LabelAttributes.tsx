@@ -25,10 +25,10 @@ const LabelAttributes = ({
             name="label"
             value={label || ''}
             onChange={(e) => onFieldChange('label', e)}
-            label={getSystemResource('attributes.label', config.language)}
+            label={getSystemResource(type === 'submit' ? 'button.text' : 'attributes.label', config.language)}
             disabled={loading}
         />
-        {type === 'message' && (
+        {type === 'message' && config.allowFullWidth && (
             <Switch
                 name="onFullWidth"
                 value={onFullWidth || false}

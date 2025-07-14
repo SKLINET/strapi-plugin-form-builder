@@ -38,15 +38,17 @@ const TitleAttributes = ({
             width="calc(50% - 8px)"
             config={config}
         />
-        <Switch
-            name="onFullWidth"
-            value={onFullWidth || false}
-            onChange={(e) => onFieldChange('onFullWidth', e)}
-            label={getSystemResource('attributes.onFullWidth', config.language)}
-            disabled={loading}
-            width="calc(50% - 8px)"
-            config={config}
-        />
+        {config.allowFullWidth && (
+            <Switch
+                name="onFullWidth"
+                value={onFullWidth || false}
+                onChange={(e) => onFieldChange('onFullWidth', e)}
+                label={getSystemResource('attributes.onFullWidth', config.language)}
+                disabled={loading}
+                width="calc(50% - 8px)"
+                config={config}
+            />
+        )}
     </>
 );
 

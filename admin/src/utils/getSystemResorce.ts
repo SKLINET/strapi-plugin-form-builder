@@ -69,6 +69,7 @@ const DATA: Record<string, any> = {
         'product.price': 'Cena produktu',
         and: 'Všechny',
         or: 'Alespoň jedna',
+        'button.text': 'Text tlačítka',
     },
     en: {
         'side.banner.title': 'Form Configuration',
@@ -140,6 +141,7 @@ const DATA: Record<string, any> = {
         'product.price': 'Product price',
         and: 'All',
         or: 'At least one',
+        'button.text': 'Button label',
     },
 };
 
