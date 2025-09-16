@@ -5,7 +5,7 @@ import { IBuiltForm } from '../types/form';
 export interface UseBuiltFormProps {
     getForm: (filters: Record<string, any>) => Promise<IBuiltForm | null>;
     createForm: (data: Record<string, any>) => Promise<IBuiltForm | null>;
-    updateForm: (documentId: string, data: Record<string, any>) => Promise<IBuiltForm | null>;
+    updateForm: (documentId: string, data: Record<string, any>, locale: string) => Promise<IBuiltForm | null>;
     deleteForm: (documentId: string) => Promise<boolean>;
 }
 
@@ -40,9 +40,13 @@ export const useBuiltForm = () => {
         }
     };
 
-    const updateForm = async (documentId: string, data: Record<string, any>): Promise<IBuiltForm | null> => {
+    const updateForm = async (
+        documentId: string,
+        data: Record<string, any>,
+        locale: string,
+    ): Promise<IBuiltForm | null> => {
         try {
-            const response = await put(`/${PLUGIN_ID}/built-form/${documentId}`, { data: data });
+            const response = await put(`/${PLUGIN_ID}/built-form/${documentId}?locale=${locale}`, { data: data });
 
             if (!response || !response.data || !response.data.data) throw new Error('Failed to update form');
 

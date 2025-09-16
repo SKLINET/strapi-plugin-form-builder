@@ -376,10 +376,13 @@ const Builder = ({ form, controls, updateForm, config }: BuilderProps) => {
                 return [...prev, next];
             }, [] as IFormField[]);
 
-        const newForm = await controls.updateForm(form.documentId, {
-            data: data,
-            locale: locale,
-        });
+        const newForm = await controls.updateForm(
+            form.documentId,
+            {
+                data: data,
+            },
+            locale,
+        );
 
         if (newForm) {
             updateForm({ ...newForm });
